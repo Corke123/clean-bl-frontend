@@ -1,14 +1,19 @@
 # CleanBlFrontend
 
+The system is intended for simple and efficient reporting of all types of damage or breakdowns, as well as illegal dumping of waste in public areas in our city.
+
+Anyone who uses the application will be able to inform the authorities with a description of the problem, a picture and the exact location, so
+services will be able to resolve this as quickly as possible.
+
+No personal information is required for non-registered users. In that case only option is to preview already reported issues.
+
+After successfully registration, users are able to submit new report with all required information and to comment already submitted issues.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 

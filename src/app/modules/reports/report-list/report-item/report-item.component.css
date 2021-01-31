@@ -1,0 +1,12 @@
+.container {
+  margin: 5px;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}

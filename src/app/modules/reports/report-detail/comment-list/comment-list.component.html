@@ -1,0 +1,22 @@
+<mat-divider></mat-divider>
+<h2>Comments:</h2>
+<mat-divider></mat-divider>
+<div *ngIf="isAuthenticated" fxLayout="column">
+    <app-add-comment></app-add-comment>
+</div>
+<div *ngIf="comments.length == 0">
+    <mat-icon>feedback</mat-icon>
+    <p>There is no comments yet</p>
+</div>
+
+<!-- <mat-list fxLayout="column" fxFlexAlign="flex-stretch" *ngIf="comments.length != 0">
+    <div mat-subheader fxLayoutAlign="start stretch">Folders</div>
+    <mat-list-item class="list-item" *ngFor="let comment of comments">
+        <app-comment-item [comment]="comment"></app-comment-item>
+    </mat-list-item>
+</mat-list>
+ -->
+<div *ngIf="comments.length != 0" fxLayout="column">
+    <app-comment-item *ngFor="let comment of comments" [comment]="comment"></app-comment-item>
+</div>
+<mat-divider></mat-divider>

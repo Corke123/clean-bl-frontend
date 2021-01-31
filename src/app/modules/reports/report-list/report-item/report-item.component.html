@@ -1,0 +1,27 @@
+<a [routerLink]="[report.id]">
+    <mat-card class="container">
+        <img [src]="transform()" alt="Report image">
+        <mat-card-content fxLayout="row" fxLayoutGap="5px">
+            <div fxLayout="column">
+                <div class="department">
+                    <h2>{{ report.department }}</h2>
+                </div>
+                <div class="location">
+                    <h3><mat-icon color="primary">location_on</mat-icon>{{ report.location }}</h3>
+                </div>
+                <div class="status" fxLayout="row">
+                    <div *ngIf="report.status === 'received'">
+                        <mat-icon color="primary">pending</mat-icon>
+                    </div>
+                    <div *ngIf="report.status === 'processing'">
+                        <mat-icon color="primary">fact_check</mat-icon>
+                    </div>
+                    <div *ngIf="report.status === 'finished'">
+                        <mat-icon color="primary">check_circle</mat-icon>
+                    </div>
+                    {{ report.status }}
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</a>

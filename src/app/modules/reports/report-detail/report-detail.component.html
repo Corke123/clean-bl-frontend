@@ -1,0 +1,92 @@
+<div fxLayout="column" class="container">
+    <div fxLayout="row wrap">
+        <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
+            <div class="info">
+                <h1>
+                    <div fxLayout="row">
+                        <mat-icon color="primary"> local_offer</mat-icon>
+                        Id: {{ report.id }}
+                    </div>
+                </h1>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary"> person</mat-icon>
+                        Reported by:
+                    </div>
+                </h3>
+                {{ report.userReported }}
+            </div>
+            <mat-divider></mat-divider>
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary">reorder</mat-icon>
+                        Involved Departments:
+                    </div>
+                </h3>
+                {{ report.department }}
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
+            <img [src]="transform()" alt="Report image">
+        </div>
+    </div>
+    <div fxLayout="row wrap">
+        <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary">description</mat-icon>
+                        Description:
+
+                    </div>
+                </h3>
+                <p> {{ report.description }} </p>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary">location_on</mat-icon>
+                        Location:
+
+                    </div>
+                </h3>
+                {{ report.location }}
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary">info</mat-icon>
+                        Status:
+                    </div>
+                </h3>
+                <mat-icon color="primary" *ngIf="report.status === 'received'">pending</mat-icon>
+                <mat-icon color="primary" *ngIf="report.status === 'processing'">fact_check</mat-icon>
+                <mat-icon color="primary" *ngIf="report.status === 'finished'">check_circle</mat-icon>
+                {{ report.status }}
+            </div>
+            <mat-divider></mat-divider>
+            <div class="info">
+                <h3>
+                    <div fxLayout="row">
+                        <mat-icon color="primary">calendar_today</mat-icon>
+                        Reported at:
+                    </div>
+                </h3>
+                {{ report.createdAt | date: 'shortDate'}}
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div>
+        <app-comment-list [reportId]="report.id" fxLayout="column"></app-comment-list>
+    </div>
+</div>

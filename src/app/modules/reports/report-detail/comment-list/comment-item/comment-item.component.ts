@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Comment } from 'src/app/shared/comment.model';
+import { Comment } from 'src/app/shared/model/comment.model';
 
 @Component({
   selector: 'app-comment-item',
@@ -12,4 +12,8 @@ export class CommentItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  getCommentDate() {
+    return new Date(this.comment.dateOfPublication * 1000);
+  }
 }

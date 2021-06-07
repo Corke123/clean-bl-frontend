@@ -1,33 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataStorageService } from 'src/app/shared/data-storage.service';
-
-interface Street {
-  id: number;
-  name: string;
-}
-
-export interface PartOfTheCity {
-  id: number;
-  name: string;
-  streets: Street[];
-}
-
-// TODO extract this to model
-export interface Department {
-  id: number;
-  name: string;
-  phone: string;
-  email: string;
-}
-
-export interface ReportPayload {
-  base64Image: string;
-  departmentName: string;
-  description: string;
-  partOfTheCity: string;
-  street: string;
-}
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+import { Department } from 'src/app/shared/model/department.model';
+import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
+import { ReportPayload } from 'src/app/shared/model/report-payload.model';
+import { ReportService } from 'src/app/shared/services/reports.service';
 
 @Component({
   selector: 'app-add-report',
@@ -45,7 +22,10 @@ export class AddReportComponent implements OnInit {
   base64Image: string;
   isLoading = false;
 
-  constructor(private dataStorageService: DataStorageService) {}
+  constructor(
+    private dataStorageService: DataStorageService,
+    private reportService: ReportService
+  ) {}
 
   ngOnInit() {
     this.dataStorageService.getLocations().subscribe((loc: PartOfTheCity[]) => {
@@ -106,9 +86,6 @@ export class AddReportComponent implements OnInit {
       base64Image: this.base64Image,
     };
 
-    console.log(reportPayload);
-    console.log('---------------------');
-
-    this.dataStorageService.storeReport(reportPayload);
+    this.reportService.storeReport(reportPayload).subscribe();
   }
 }

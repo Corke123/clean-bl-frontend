@@ -7,7 +7,6 @@ import { SignupComponent } from './modules/auth/signup/signup.component';
 import { AddReportComponent } from './modules/reports/add-report/add-report.component';
 import { ReportDetailComponent } from './modules/reports/report-detail/report-detail.component';
 import { ReportListComponent } from './modules/reports/report-list/report-list.component';
-import { ReportsResolverService } from './modules/reports/report-resolver.service';
 import { ReportsComponent } from './modules/reports/reports.component';
 
 const routes: Routes = [
@@ -31,7 +30,6 @@ const routes: Routes = [
           {
             path: ':id',
             component: ReportDetailComponent,
-            resolve: [ReportsResolverService],
           },
         ],
       },

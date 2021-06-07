@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LoginResponse } from './login/login-response.payload';
-import { SignupRequestPayload } from './signup/signup-request.payload';
-import { User } from './user.model';
+import { LoginResponse } from '../../shared/model/login-response.payload';
+import { SignupRequestPayload } from '../../shared/model/signup-request.payload';
+import { User } from '../../shared/model/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
 
   signup(signupRequestPayload: SignupRequestPayload) {
     return this.http
-      .post('http://localhost:8080/api/auth/signup', signupRequestPayload, {
+      .post('http://localhost:8080/api/v1/auth/signup', signupRequestPayload, {
         responseType: 'text',
       })
       .pipe(catchError(this.handlerError));
@@ -23,7 +23,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<LoginResponse>('http://localhost:8080/api/auth/login', {
+      .post<LoginResponse>('http://localhost:8080/api/v1/auth/login', {
         username: username,
         password: password,
       })
@@ -32,7 +32,6 @@ export class AuthService {
         tap((resData) => {
           const user = new User(
             resData.authenticationToken,
-            resData.refreshToken,
             new Date(+resData.expiresAt * 1000),
             resData.username
           );
@@ -53,7 +52,6 @@ export class AuthService {
     }
     const loadedUser: User = new User(
       temp._authenticationToken,
-      temp.refreshToken,
       temp.expiresAt,
       temp.username
     );
@@ -76,28 +74,31 @@ export class AuthService {
   }
 
   autoLogout(expirationDuration: number) {
-    console.log(expirationDuration);
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
   }
 
   private handlerError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occured!';
+    let errorMessage = 'Neočekivana greška!';
 
     if (!errorRes.error || !errorRes.status) {
       return throwError(errorMessage);
     }
+
     if (errorRes.status === 403) {
-      return throwError('Wrong email or password.');
+      return throwError('Pogrešno korisničko ime ili lozinka.');
     }
-    switch (errorRes.error) {
-      case 'Email is taken':
-        errorMessage = 'This email exists already!';
-        break;
-      case 'Username is taken':
-        errorMessage = 'This username exists already!';
-        break;
+
+    if (errorRes.status === 409) {
+      switch (errorRes.error.message) {
+        case 'Email is taken':
+          errorMessage = 'E-mail je zauzet!';
+          break;
+        case 'Username is taken':
+          errorMessage = 'Korisničko ime je zauzeto!';
+          break;
+      }
     }
     return throwError(errorMessage);
   }

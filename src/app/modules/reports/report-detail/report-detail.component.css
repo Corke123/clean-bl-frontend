@@ -14,3 +14,11 @@ img {
 .container {
   margin-bottom: 20px;
 }
+
+mat-icon {
+  margin-right: 10px;
+}
+
+.info span {
+  text-transform: uppercase;
+}

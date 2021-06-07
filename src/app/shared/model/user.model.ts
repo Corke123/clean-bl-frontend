@@ -1,7 +1,6 @@
 export class User {
   constructor(
     private _authenticationToken: string,
-    private refreshToken: string,
     public expiresAt: Date,
     public username: string
   ) {}

@@ -1,19 +1,31 @@
 <div class="container">
-    <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
-        <mat-card>
-            <mat-card-content fxLayout="column">
-                <div>
-                    <mat-form-field (mousedown)="touch($event)" fxFlex="0 0 100%" appearance="fill">
-                        <mat-label>Add a public comment...</mat-label>
-                        <textarea matInput ngModel name="comment" required></textarea>
-                    </mat-form-field>
-                </div>
-                <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" *ngIf="showButtons">
-                    <button mat-button type="button" (click)="onCancel(commentForm)">Cancel</button>
-                    <button mat-raised-button color="primary" type="submit"
-                        [disabled]="!commentForm.valid">Comment</button>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </form>
+  <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <div>
+          <mat-form-field
+            (mousedown)="touch($event)"
+            fxFlex="0 0 100%"
+            appearance="fill"
+          >
+            <mat-label>Add a public comment...</mat-label>
+            <textarea matInput ngModel name="comment" required></textarea>
+          </mat-form-field>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" *ngIf="showButtons">
+          <button mat-button type="button" (click)="onCancel(commentForm)">
+            Odustani
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!commentForm.valid"
+          >
+            Komentariši
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
 </div>

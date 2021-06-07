@@ -29,13 +29,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params.registered !== undefined && params.registered === 'true') {
-        this.snackBar.open('Signup Successful!', '', {
+        this.snackBar.open('Uspješno ste registrovani!', '', {
           duration: 1500,
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
         });
         this.registerSuccessMessage =
-          'Please check your inbox for activation email and activate your account before you Login!';
+          'Provjerite Vaše poštansko sanduče kako bi ste aktivirali Vaš nalog!';
       }
     });
   }
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       (resData) => {
         this.isLoading = false;
         this.router.navigate(['/reports']);
-        this.snackBar.open('Login Successful!', '', {
+        this.snackBar.open('Uspješno ste prijavljeni!', '', {
           duration: 1500,
           horizontalPosition: 'center',
           verticalPosition: 'top',

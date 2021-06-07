@@ -1,51 +1,51 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <button mat-icon-button (click)="onToggleSideBar()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span>CleanBL</span>
-        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-            <ul fxLayout="row" fxLayoutGap="20px">
-                <li>
-                    <button mat-icon-button>
-                        <mat-icon>help_outline</mat-icon>
-                    </button>
-                </li>
-                <li *ngIf="!isAuthenticated">
-                    <a routerLink="/login">
-                        <button mat-icon-button [fxHide.xs]="false" [fxHide]="true">
-                            <mat-icon>login</mat-icon>
-                        </button>
-                        <button mat-button [fxHide.xs]="true" [fxHide]="false">
-                            <mat-icon>login</mat-icon>
-                            <span>Login</span>
-                        </button>
-                    </a>
-                </li>
-                <li *ngIf="!isAuthenticated">
-                    <a routerLink="/signup">
-                        <button mat-icon-button [fxHide.xs]="false" [fxHide]="true">
-                            <mat-icon>person_add</mat-icon>
-                        </button>
-                        <button mat-button [fxHide.xs]="true" [fxHide]="false">
-                            <mat-icon>person_add</mat-icon>
-                            <span>Signup</span>
-                        </button>
-                    </a>
-                </li>
-                <li *ngIf="isAuthenticated">
-                    <button mat-button [matMenuTriggerFor]="menu">
-                        <mat-icon>person_outline</mat-icon>
-                        <span>{{ username }}</span>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="onLogout()">
-                            <mat-icon>exit_to_app</mat-icon>
-                            Sign out
-                        </button>
-                    </mat-menu>
-                </li>
-            </ul>
-        </div>
-    </mat-toolbar-row>
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="onToggleSideBar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>CleanBL</span>
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+      <ul fxLayout="row" fxLayoutGap="20px">
+        <li>
+          <button mat-icon-button>
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </li>
+        <li *ngIf="!isAuthenticated">
+          <a routerLink="/login">
+            <button mat-icon-button [fxHide.xs]="false" [fxHide]="true">
+              <mat-icon>login</mat-icon>
+            </button>
+            <button mat-button [fxHide.xs]="true" [fxHide]="false">
+              <mat-icon>login</mat-icon>
+              <span>Prijava</span>
+            </button>
+          </a>
+        </li>
+        <li *ngIf="!isAuthenticated">
+          <a routerLink="/signup">
+            <button mat-icon-button [fxHide.xs]="false" [fxHide]="true">
+              <mat-icon>person_add</mat-icon>
+            </button>
+            <button mat-button [fxHide.xs]="true" [fxHide]="false">
+              <mat-icon>person_add</mat-icon>
+              <span>Registracija</span>
+            </button>
+          </a>
+        </li>
+        <li *ngIf="isAuthenticated">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>person_outline</mat-icon>
+            <span>{{ username }}</span>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onLogout()">
+              <mat-icon>exit_to_app</mat-icon>
+              Sign out
+            </button>
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>

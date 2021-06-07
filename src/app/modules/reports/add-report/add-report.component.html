@@ -1,56 +1,103 @@
 <div class="container">
-    <h1>Populate report fields</h1>
-    <form #reportForm="ngForm" (ngSubmit)="onSubmit(reportForm)">
-        <div fxLayout="row wrap" fxLayoutGap="10px">
-            <mat-form-field fxFlex.gt-sm="calc(50% - 20px)" fxFlex.sm="100%" fxFlex.lt-sm="100%">
-                <mat-label>Category</mat-label>
-                <mat-icon color="primary" matPrefix>list</mat-icon>
-                <mat-select ngModel name="category" required>
-                    <mat-option *ngFor="let department of departments" [value]="department.name">
-                        {{department.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field fxFlex.gt-sm="calc(50% - 20px)" fxFlex.sm="100%" fxFlex.lt-sm="100%">
-                <mat-label>Location</mat-label>
-                <mat-icon matPrefix color="primary">location_on</mat-icon>
-                <mat-select name="location" ngModel required>
-                    <mat-optgroup *ngFor="let location of locations" [label]="location.name">
-                        <mat-option *ngFor="let street of location.streets" [value]="location.name + '#' + street.name">
-                            {{ street.name }}
-                        </mat-option>
-                    </mat-optgroup>
-                </mat-select>
-                <mat-error>
-                    You must choose location!
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field fxFlex="100%">
-                <mat-label>Describe us what is the problem</mat-label>
-                <mat-icon matPrefix color="primary">description</mat-icon>
-                <textarea matInput name="description" ngModel required></textarea>
-            </mat-form-field>
+  <h1>Populate report fields</h1>
+  <form #reportForm="ngForm" (ngSubmit)="onSubmit(reportForm)">
+    <div fxLayout="row wrap" fxLayoutGap="10px">
+      <mat-form-field
+        fxFlex.gt-sm="calc(50% - 20px)"
+        fxFlex.sm="100%"
+        fxFlex.lt-sm="100%"
+      >
+        <mat-label>Category</mat-label>
+        <mat-icon color="primary" matPrefix>list</mat-icon>
+        <mat-select ngModel name="category" required>
+          <mat-option
+            *ngFor="let department of departments"
+            [value]="department.name"
+          >
+            {{ department.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        fxFlex.gt-sm="calc(50% - 20px)"
+        fxFlex.sm="100%"
+        fxFlex.lt-sm="100%"
+      >
+        <mat-label>Location</mat-label>
+        <mat-icon matPrefix color="primary">location_on</mat-icon>
+        <mat-select name="location" ngModel required>
+          <mat-optgroup
+            *ngFor="let location of locations"
+            [label]="location.name"
+          >
+            <mat-option
+              *ngFor="let street of location.streets"
+              [value]="location.name + '#' + street.name"
+            >
+              {{ street.name }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-error> You must choose location! </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="100%">
+        <mat-label>Describe us what is the problem</mat-label>
+        <mat-icon matPrefix color="primary">description</mat-icon>
+        <textarea matInput name="description" ngModel required></textarea>
+      </mat-form-field>
 
-            <mat-form-field fxFlex="100%">
-                <mat-label>Upload image</mat-label>
-                <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
-                <input matInput name="imageValue" [ngModel]="imagePath" readonly required>
-                <button matSuffix type="button" mat-raised-button (click)="fileInput.click()" color="primary"
-                    fxFlexAlign="center">Choose File</button>
-                <mat-error>
-                    {{ wrongFormat }}
-                </mat-error>
-                <input hidden (change)="onFileSelected(fileInput.files)" #fileInput type="file" id="file"
-                    data-max-size="2048">
-            </mat-form-field>
-            <div fxFlex="0 100 100%">
-                <div fxFlex fxFlex.fxFlex.gt-md="0 100 50%" *ngIf="imageUrl">
-                    <img mat-card-image class="image" [src]="imageUrl" alt=" {{ imageUrl }}">
-                </div>
-            </div>
-            <div fxFlex fxLayoutAlign="center start">
-                <button mat-raised-button color="primary" type="submit" [disabled]="!reportForm.valid">Submit</button>
-            </div>
+      <mat-form-field fxFlex="100%">
+        <mat-label>Upload image</mat-label>
+        <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
+        <input
+          matInput
+          name="imageValue"
+          [ngModel]="imagePath"
+          readonly
+          required
+        />
+        <button
+          matSuffix
+          type="button"
+          mat-raised-button
+          (click)="fileInput.click()"
+          color="primary"
+          fxFlexAlign="center"
+        >
+          Choose File
+        </button>
+        <mat-error>
+          {{ wrongFormat }}
+        </mat-error>
+        <input
+          hidden
+          (change)="onFileSelected(fileInput.files)"
+          #fileInput
+          type="file"
+          id="file"
+          data-max-size="2048"
+        />
+      </mat-form-field>
+      <div fxFlex="0 100 100%">
+        <div fxFlex fxFlex.fxFlex.gt-md="0 100 50%" *ngIf="imageUrl">
+          <img
+            mat-card-image
+            class="image"
+            [src]="imageUrl"
+            alt=" {{ imageUrl }}"
+          />
         </div>
-    </form>
+      </div>
+      <div fxFlex fxLayoutAlign="center start">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!reportForm.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

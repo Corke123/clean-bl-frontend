@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { Report } from '../report.model';
-import { ReportService } from '../report.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Report } from '../../../shared/model/report.model';
+import { ReportService } from 'src/app/shared/services/reports.service';
 
 @Component({
   selector: 'app-report-detail',
@@ -17,7 +18,6 @@ export class ReportDetailComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
@@ -26,27 +26,29 @@ export class ReportDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.report = this.reportService.getReportById(this.id);
-      this.reportService.setSelectedReport(this.report);
-      if (this.report !== undefined) {
-        this.dataStorageService.getCommentsForReport(this.id).subscribe();
-      } else {
-        this.snackBar.open('Unable to find report!', 'OK', {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
-        this.router.navigate([''], {
-          relativeTo: this.route.parent,
-        });
-      }
+      this.reportService.getReportById(+params['id']).subscribe(
+        (report: Report) => {
+          this.report = report;
+        },
+        () => {
+          this.snackBar.open('Nije moguće pronaći prijavu!', 'OK', {
+            duration: 2000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.router.navigate([''], {
+            relativeTo: this.route.parent,
+          });
+        }
+      );
     });
   }
 
   transform() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(
-      'data:image/png;base64, ' + this.report.base64Image
-    );
+    if (this.report !== undefined) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(
+        'data:image/png;base64, ' + this.report.base64Image
+      );
+    }
   }
 }

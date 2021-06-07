@@ -29,4 +29,5 @@ mat-form-field {
   height: 50px;
   margin-bottom: 15px;
   line-height: 25px;
+  padding: 10px;
 }

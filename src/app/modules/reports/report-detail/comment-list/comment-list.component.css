@@ -7,3 +7,7 @@ div {
   height: auto;
   width: fit-content;
 }
+
+.no-comments {
+  padding: 10px;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { SignupRequestPayload } from './signup-request.payload';
+import { SignupRequestPayload } from '../../../shared/model/signup-request.payload';
 
 @Component({
   selector: 'app-signup',

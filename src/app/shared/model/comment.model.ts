@@ -1,7 +1,7 @@
 export class Comment {
   constructor(
     public username: string,
-    public dateOfPublication: Date,
+    public dateOfPublication: number,
     public content: string
   ) {}
 }

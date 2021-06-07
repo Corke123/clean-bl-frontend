@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Report } from '../../report.model';
+import { Report } from '../../../../shared/model/report.model';
 
 @Component({
   selector: 'app-report-item',
@@ -12,9 +12,7 @@ export class ReportItemComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   transform() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(

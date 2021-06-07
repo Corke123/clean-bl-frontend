@@ -92,6 +92,7 @@
   </div>
   <div>
     <app-comment-list
+      *ngIf="report"
       [reportId]="report.id"
       fxLayout="column"
     ></app-comment-list>

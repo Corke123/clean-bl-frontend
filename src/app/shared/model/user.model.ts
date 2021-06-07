@@ -2,7 +2,8 @@ export class User {
   constructor(
     private _authenticationToken: string,
     public expiresAt: Date,
-    public username: string
+    public username: string,
+    public roles: string[]
   ) {}
 
   get authenticationToken() {
@@ -10,5 +11,9 @@ export class User {
       return null;
     }
     return this._authenticationToken;
+  }
+
+  public hasRole(role: string): boolean {
+    return this.roles.some((r) => r === role);
   }
 }

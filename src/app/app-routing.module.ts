@@ -45,6 +45,9 @@ const routes: Routes = [
         path: 'add-report',
         component: AddReportComponent,
         canActivate: [AuthGuard],
+        data: {
+          expectedRole: 'ROLE_User',
+        },
       },
     ],
   },

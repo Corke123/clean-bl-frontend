@@ -33,7 +33,8 @@ export class AuthService {
           const user = new User(
             resData.authenticationToken,
             new Date(+resData.expiresAt * 1000),
-            resData.username
+            resData.username,
+            [...resData.roles]
           );
           this.user.next(user);
           this.autoLogout(
@@ -53,7 +54,8 @@ export class AuthService {
     const loadedUser: User = new User(
       temp._authenticationToken,
       temp.expiresAt,
-      temp.username
+      temp.username,
+      [...temp.roles]
     );
 
     if (loadedUser.authenticationToken) {

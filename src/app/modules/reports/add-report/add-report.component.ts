@@ -5,6 +5,7 @@ import { Department } from 'src/app/shared/model/department.model';
 import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
 import { ReportPayload } from 'src/app/shared/model/report-payload.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-report',
@@ -24,7 +25,8 @@ export class AddReportComponent implements OnInit {
 
   constructor(
     private dataStorageService: DataStorageService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,8 @@ export class AddReportComponent implements OnInit {
       base64Image: this.base64Image,
     };
 
-    this.reportService.storeReport(reportPayload).subscribe();
+    this.reportService.storeReport(reportPayload).subscribe(() => {
+      this.router.navigateByUrl('/reports');
+    });
   }
 }

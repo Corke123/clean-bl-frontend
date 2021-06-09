@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+import { DepartmentService } from 'src/app/shared/services/department.service';
 import { Department } from 'src/app/shared/model/department.model';
 import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
 import { ReportPayload } from 'src/app/shared/model/report-payload.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
 import { Router } from '@angular/router';
+import { PartOfTheCityService } from 'src/app/shared/services/part-of-the-city.service';
 
 @Component({
   selector: 'app-add-report',
@@ -24,16 +25,19 @@ export class AddReportComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private dataStorageService: DataStorageService,
+    private partOfTheCityService: PartOfTheCityService,
+    private departmentService: DepartmentService,
     private reportService: ReportService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.dataStorageService.getLocations().subscribe((loc: PartOfTheCity[]) => {
-      this.locations = loc;
-    });
-    this.dataStorageService
+    this.partOfTheCityService
+      .getPartsOfTheCity()
+      .subscribe((loc: PartOfTheCity[]) => {
+        this.locations = loc;
+      });
+    this.departmentService
       .getDepartments()
       .subscribe((departments: Department[]) => {
         this.departments = departments;

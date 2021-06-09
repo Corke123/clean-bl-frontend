@@ -1,7 +1,7 @@
 import { Street } from './street.model';
 
 export interface PartOfTheCity {
-  id: number;
+  id?: number;
   name: string;
-  streets: Street[];
+  streets?: Street[];
 }

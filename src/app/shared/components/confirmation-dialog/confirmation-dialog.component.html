@@ -1,0 +1,15 @@
+<div mat-dialog-title>
+  <div>{{ data.title }}</div>
+</div>
+
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="center center" class="content">
+    <p>{{ data.question }}</p>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button color="primary" [mat-dialog-close]="'abort'">Ne</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="'confirm'">
+    Da
+  </button>
+</div>

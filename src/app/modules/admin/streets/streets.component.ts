@@ -17,6 +17,7 @@ import {
   startWith,
   switchMap,
 } from 'rxjs/operators';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
 import { Street } from 'src/app/shared/model/street.model';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -158,5 +159,21 @@ export class StreetsComponent implements OnInit, AfterViewInit {
     this.commonService.showSnackBar(
       'Greška, nije moguće dobiti informacije o ulicama!'
     );
+  }
+
+  openConfirmDialog(street: Street): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Obriši ulicu',
+        question: 'Da li ste sigurni da želite obrisati ulicu ' + street.name,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((dialogAction) => {
+      if (dialogAction === 'confirm') {
+        this.deleteStreet(street);
+      }
+    });
   }
 }

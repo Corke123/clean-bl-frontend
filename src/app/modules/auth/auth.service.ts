@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LoginResponse } from '../../shared/model/login-response.payload';
@@ -11,7 +12,7 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(signupRequestPayload: SignupRequestPayload) {
     return this.http
@@ -72,7 +73,7 @@ export class AuthService {
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
-    this.tokenExpirationTimer;
+    this.router.navigateByUrl('/login');
   }
 
   autoLogout(expirationDuration: number) {

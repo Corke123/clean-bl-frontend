@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -23,17 +23,13 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params.registered !== undefined && params.registered === 'true') {
-        this.snackBar.open('Uspješno ste registrovani!', '', {
-          duration: 1500,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
+        this.commonService.showSnackBar('Uspješno ste registrovani!');
         this.registerSuccessMessage =
           'Provjerite Vaše poštansko sanduče kako bi ste aktivirali Vaš nalog!';
       }
@@ -51,12 +47,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password).subscribe(
       (resData) => {
         this.isLoading = false;
-        this.router.navigate(['/reports']);
-        this.snackBar.open('Uspješno ste prijavljeni!', '', {
-          duration: 1500,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        this.router.navigate([this.findRedirectURL([...resData.roles])]);
+        this.commonService.showSnackBar('Uspješno ste prijavljeni!');
       },
       (errorMessage) => {
         this.loginInvalid = true;
@@ -66,5 +58,15 @@ export class LoginComponent implements OnInit {
     );
 
     form.reset();
+  }
+
+  findRedirectURL(roles: string[]): string {
+    if (roles.some((r) => r === 'ROLE_User')) {
+      return 'reports';
+    } else if (roles.some((r) => r === 'ROLE_Admin')) {
+      return 'admin';
+    } else {
+      return 'management';
+    }
   }
 }

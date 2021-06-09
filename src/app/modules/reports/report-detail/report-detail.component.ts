@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { Report } from '../../../shared/model/report.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-report-detail',
@@ -18,9 +17,9 @@ export class ReportDetailComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
+    private commonService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -31,11 +30,7 @@ export class ReportDetailComponent implements OnInit {
           this.report = report;
         },
         () => {
-          this.snackBar.open('Nije moguće pronaći prijavu!', 'OK', {
-            duration: 2000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          });
+          this.commonService.showSnackBar('Nije moguće pronaći prijavu!');
           this.router.navigate([''], {
             relativeTo: this.route.parent,
           });

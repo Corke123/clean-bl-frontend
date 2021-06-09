@@ -1,13 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { ReportService } from 'src/app/shared/services/reports.service';
 
 @Component({
@@ -22,7 +15,7 @@ export class AddCommentComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private snackBar: MatSnackBar
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {}
@@ -36,11 +29,7 @@ export class AddCommentComponent implements OnInit {
     this.reportService
       .storeComment(this.selectedReportId, comment)
       .subscribe((response) => {
-        this.snackBar.open('Uspješno ste dodali komentar!', '', {
-          duration: 1500,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
+        this.commonService.showSnackBar('Uspješno ste dodali komentar!');
         this.addedComment.emit(response);
       });
   }

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { AuthModule } from 'src/app/modules/auth/auth.module';
 import { ReportModule } from 'src/app/modules/reports/reports.module';
+import { AdminModule } from 'src/app/modules/admin/admin.module';
 
 @NgModule({
   declarations: [DefaultComponent],
@@ -20,6 +21,7 @@ import { ReportModule } from 'src/app/modules/reports/reports.module';
     MaterialModule,
     AuthModule,
     ReportModule,
+    AdminModule,
   ],
 })
 export class DefaultModule {}

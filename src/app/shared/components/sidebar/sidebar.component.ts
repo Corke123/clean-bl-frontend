@@ -10,12 +10,20 @@ import { AuthService } from 'src/app/modules/auth/auth.service';
 export class SidebarComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
   isAuthenticated = false;
+  isEndUser = false;
+  isDepartmentOfficer = false;
+  isAdmin = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;
+      if (this.isAuthenticated) {
+        this.isEndUser = user.isEndUser();
+        this.isDepartmentOfficer = user.isDepartmentOfficer();
+        this.isAdmin = user.isAdmin();
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
+import { StreetsComponent } from './modules/admin/streets/streets.component';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
     path: '',
     component: DefaultComponent,
     children: [
+      // reports routes
       {
         path: '',
         redirectTo: '/reports',
@@ -34,6 +36,15 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'add-report',
+        component: AddReportComponent,
+        canActivate: [AuthGuard],
+        data: {
+          expectedRole: 'ROLE_User',
+        },
+      },
+      // auth routes
+      {
         path: 'login',
         component: LoginComponent,
       },
@@ -41,12 +52,19 @@ const routes: Routes = [
         path: 'signup',
         component: SignupComponent,
       },
+
+      // admin routes
       {
-        path: 'add-report',
-        component: AddReportComponent,
+        path: 'admin',
+        redirectTo: '/admin/streets',
+        pathMatch: 'full',
+      },
+      {
+        path: 'admin/streets',
+        component: StreetsComponent,
         canActivate: [AuthGuard],
         data: {
-          expectedRole: 'ROLE_User',
+          expectedRole: 'ROLE_Admin',
         },
       },
     ],

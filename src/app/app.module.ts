@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './modules/auth/auth-interceptor.service';
 import { ReportService } from './shared/services/reports.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getSerbianPaginatorIntl } from './shared/pagination/serbian-paginator-intl';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,7 @@ import { ReportService } from './shared/services/reports.service';
       useClass: AuthInterceptorService,
       multi: true,
     },
+    { provide: MatPaginatorIntl, useValue: getSerbianPaginatorIntl() },
   ],
   bootstrap: [AppComponent],
 })

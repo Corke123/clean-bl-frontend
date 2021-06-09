@@ -1,12 +1,24 @@
 <mat-nav-list>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/reports"
+  <a
+    *ngIf="isEndUser || !isAuthenticated"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/reports"
     >Prijave</a
   >
   <a
+    *ngIf="isAuthenticated && isEndUser"
     mat-list-item
     routerLinkActive="list-item-active"
     routerLink="/add-report"
-    *ngIf="isAuthenticated"
     >Dodaj prijavu</a
+  >
+
+  <a
+    *ngIf="isAuthenticated && isAdmin"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/admin/streets"
+    >Ulice</a
   >
 </mat-nav-list>

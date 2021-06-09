@@ -16,4 +16,16 @@ export class User {
   public hasRole(role: string): boolean {
     return this.roles.some((r) => r === role);
   }
+
+  public isEndUser(): boolean {
+    return this.roles.some((r) => r === 'ROLE_User');
+  }
+
+  public isAdmin(): boolean {
+    return this.roles.some((r) => r === 'ROLE_Admin');
+  }
+
+  public isDepartmentOfficer(): boolean {
+    return this.roles.some((r) => r === 'ROLE_DepartmentOfficer');
+  }
 }

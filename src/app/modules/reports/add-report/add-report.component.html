@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Populate report fields</h1>
+  <h1>Popunite tražena polja</h1>
   <form #reportForm="ngForm" (ngSubmit)="onSubmit(reportForm)">
     <div fxLayout="row wrap" fxLayoutGap="10px">
       <mat-form-field
@@ -7,7 +7,7 @@
         fxFlex.sm="100%"
         fxFlex.lt-sm="100%"
       >
-        <mat-label>Category</mat-label>
+        <mat-label>Kategorija</mat-label>
         <mat-icon color="primary" matPrefix>list</mat-icon>
         <mat-select ngModel name="category" required>
           <mat-option
@@ -23,7 +23,7 @@
         fxFlex.sm="100%"
         fxFlex.lt-sm="100%"
       >
-        <mat-label>Location</mat-label>
+        <mat-label>Lokacija</mat-label>
         <mat-icon matPrefix color="primary">location_on</mat-icon>
         <mat-select name="location" ngModel required>
           <mat-optgroup

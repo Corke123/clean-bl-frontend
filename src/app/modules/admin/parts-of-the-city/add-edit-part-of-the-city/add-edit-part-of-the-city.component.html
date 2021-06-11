@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>
+  {{ data.action === "ADD" ? "Dodaj naselje" : "Izmijeni naselje" }}
+</h1>
+<form [formGroup]="form">
+  <div mat-dialog-content fxLayout="column">
+    <mat-form-field>
+      <mat-label>Naziv</mat-label>
+      <input
+        matInput
+        placeholder="Unesite naziv ulice"
+        [ngModel]="data.partOfTheCity?.name"
+        required
+        formControlName="name"
+        autocomplete="off"
+      />
+      <mat-error>Naziv je obavezan.</mat-error>
+    </mat-form-field>
+  </div>
+  <div
+    mat-dialog-actions
+    fxLayout="row"
+    fxLayoutAlign="end center"
+    fxLayoutGap="20px"
+  >
+    <button mat-button color="primary" (click)="close()">Odustani</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      type="submit"
+      (click)="save()"
+    >
+      Sačuvaj
+    </button>
+  </div>
+</form>

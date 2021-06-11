@@ -21,4 +21,11 @@
     routerLink="/admin/streets"
     >Ulice</a
   >
+  <a
+    *ngIf="isAuthenticated && isAdmin"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/admin/parts-of-the-city"
+    >Naselja</a
+  >
 </mat-nav-list>

@@ -4,57 +4,53 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
-import { Street } from 'src/app/shared/model/street.model';
 import { CommonService } from 'src/app/shared/services/common.service';
-import { StreetService } from 'src/app/shared/services/street.service';
+import { PartOfTheCityService } from 'src/app/shared/services/part-of-the-city.service';
 
 @Component({
-  selector: 'app-add-edit-street-dialog',
-  templateUrl: './add-edit-street-dialog.component.html',
-  styleUrls: ['./add-edit-street-dialog.component.css'],
+  selector: 'app-add-edit-part-of-the-city',
+  templateUrl: './add-edit-part-of-the-city.component.html',
+  styleUrls: ['./add-edit-part-of-the-city.component.css'],
 })
-export class AddEditStreetDialogComponent implements OnInit {
+export class AddEditPartOfTheCityComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-  newStreet: { name: string; partOfTheCity: string } = {
+  newStreet: { name: string } = {
     name: '',
-    partOfTheCity: '',
   };
 
   constructor(
     private commonService: CommonService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddEditStreetDialogComponent>,
-    private streetService: StreetService,
+    private dialogRef: MatDialogRef<AddEditPartOfTheCityComponent>,
+    private partOfTheCityService: PartOfTheCityService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       action: string;
-      street: Street;
-      partsOfTheCity: PartOfTheCity[];
+      partOfTheCity: PartOfTheCity;
     }
   ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       name: [this.newStreet.name, Validators.required],
-      partOfTheCity: [this.newStreet.partOfTheCity, Validators.required],
     });
   }
 
   save() {
     if (this.form.valid) {
       if (this.data.action === 'ADD') {
-        this.streetService
-          .addStreet(this.form.value)
+        this.partOfTheCityService
+          .addPartOfThecity(this.form.value)
           .pipe(
             catchError(this.handleError),
-            tap((street) => {
+            tap((partOfTheCity) => {
               this.handleSuccess();
             })
           )
           .subscribe();
       } else {
-        this.streetService
-          .updateStreet(this.data.street.id, this.form.value)
+        this.partOfTheCityService
+          .updatePartOfTheCity(this.data.partOfTheCity.id, this.form.value)
           .pipe(
             catchError(this.handleError),
             tap((street) => {

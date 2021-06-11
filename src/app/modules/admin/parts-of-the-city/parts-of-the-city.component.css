@@ -1,0 +1,29 @@
+.container {
+  padding-bottom: 20px;
+}
+
+.header {
+  text-transform: uppercase;
+}
+
+.actions-container {
+  width: 100%;
+}
+
+.search-container {
+  width: 20vw;
+}
+
+.table-container,
+.table {
+  width: 100%;
+}
+
+.mat-column-id,
+.mat-column-actions {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 10% !important;
+  width: 10% !important;
+  overflow-wrap: break-word;
+}

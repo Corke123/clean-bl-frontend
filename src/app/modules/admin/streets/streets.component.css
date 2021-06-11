@@ -6,12 +6,16 @@
   text-transform: uppercase;
 }
 
+.actions-container {
+  width: 100%;
+}
+
 .search-container {
-  width: 30vw;
+  width: 20vw;
 }
 
 .part-of-the-city-container {
-  width: 30vw;
+  width: 20vw;
 }
 
 .table-container,

@@ -86,11 +86,16 @@ export class StreetsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.partOfTheCityService
-      .getPartsOfTheCitySimple()
-      .subscribe((partsOfTheCity) => {
+    this.partOfTheCityService.getPartsOfTheCitySimple().subscribe(
+      (partsOfTheCity) => {
         this.partsOfTheCity = partsOfTheCity;
-      });
+      },
+      (err) => {
+        this.commonService.showSnackBar(
+          'Došlo je do greške. Nije moguće dobiti informacije o naseljima!'
+        );
+      }
+    );
   }
 
   addStreet(): void {

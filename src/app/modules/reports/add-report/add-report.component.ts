@@ -48,13 +48,13 @@ export class AddReportComponent implements OnInit {
     this.wrongFormat = null;
 
     if (files.length === 0) {
-      this.wrongFormat = 'Only images are supported!';
+      this.wrongFormat = 'Samo slike su podržane!';
       return;
     }
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.wrongFormat = 'Only images are supported!';
+      this.wrongFormat = 'Samo slike su podržane!';
       this.imageUrl = '';
       return;
     }

@@ -17,6 +17,7 @@
             {{ department.name }}
           </mat-option>
         </mat-select>
+        <mat-error> Kategorija je obavezna. </mat-error>
       </mat-form-field>
       <mat-form-field
         fxFlex.gt-sm="calc(50% - 20px)"
@@ -38,16 +39,23 @@
             </mat-option>
           </mat-optgroup>
         </mat-select>
-        <mat-error> You must choose location! </mat-error>
+        <mat-error> Lokacija je obavezna. </mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="100%">
-        <mat-label>Describe us what is the problem</mat-label>
+        <mat-label>Opis</mat-label>
         <mat-icon matPrefix color="primary">description</mat-icon>
-        <textarea matInput name="description" ngModel required></textarea>
+        <textarea
+          matInput
+          name="description"
+          ngModel
+          required
+          placeholder="Opišite nam šta je problem."
+        ></textarea>
+        <mat-error> Opis je obavezan. </mat-error>
       </mat-form-field>
 
       <mat-form-field fxFlex="100%">
-        <mat-label>Upload image</mat-label>
+        <mat-label>Dodaj sliku</mat-label>
         <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
         <input
           matInput
@@ -64,7 +72,7 @@
           color="primary"
           fxFlexAlign="center"
         >
-          Choose File
+          Izaberi sliku
         </button>
         <mat-error>
           {{ wrongFormat }}
@@ -95,7 +103,7 @@
           type="submit"
           [disabled]="!reportForm.valid"
         >
-          Submit
+          Potvrdi
         </button>
       </div>
     </div>

@@ -12,8 +12,4 @@ export class CommentItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  getCommentDate() {
-    return new Date(this.comment.dateOfPublication * 1000);
-  }
 }

@@ -3,6 +3,7 @@ export interface ContactUsMessage {
   title: string;
   email: string;
   content: string;
+  createdAt?: Date;
   replied?: boolean;
   response?: string;
 }

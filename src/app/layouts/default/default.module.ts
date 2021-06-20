@@ -7,8 +7,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { AuthModule } from 'src/app/modules/auth/auth.module';
-import { ReportModule } from 'src/app/modules/reports/reports.module';
 import { AdminModule } from 'src/app/modules/admin/admin.module';
+import { UserModule } from 'src/app/modules/user/user.module';
 
 @NgModule({
   declarations: [DefaultComponent],
@@ -20,7 +20,7 @@ import { AdminModule } from 'src/app/modules/admin/admin.module';
     FormsModule,
     MaterialModule,
     AuthModule,
-    ReportModule,
+    UserModule,
     AdminModule,
   ],
 })

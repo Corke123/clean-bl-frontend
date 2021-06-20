@@ -6,10 +6,11 @@ import { StreetsComponent } from './modules/admin/streets/streets.component';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
-import { AddReportComponent } from './modules/reports/add-report/add-report.component';
-import { ReportDetailComponent } from './modules/reports/report-detail/report-detail.component';
-import { ReportListComponent } from './modules/reports/report-list/report-list.component';
-import { ReportsComponent } from './modules/reports/reports.component';
+import { ContactUsComponent } from './modules/user/contact-us/contact-us.component';
+import { AddReportComponent } from './modules/user/reports/add-report/add-report.component';
+import { ReportDetailComponent } from './modules/user/reports/report-detail/report-detail.component';
+import { ReportListComponent } from './modules/user/reports/report-list/report-list.component';
+import { ReportsComponent } from './modules/user/reports/reports.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
         data: {
           expectedRole: 'ROLE_User',
         },
+      },
+      {
+        path: 'contact-us',
+        component: ContactUsComponent,
       },
       // auth routes
       {

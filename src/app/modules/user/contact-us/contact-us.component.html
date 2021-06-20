@@ -1,0 +1,61 @@
+<div fxLayoutAlign="center start">
+  <div fxFlex.xs="100%" fxFlex.sm="75%" fxFlex="50">
+    <div fxLayoutAlign="center start" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <form
+      #contactUsForm="ngForm"
+      (ngSubmit)="onSubmit(contactUsForm)"
+      *ngIf="!isLoading"
+    >
+      <mat-card>
+        <div fxLayoutAlign="center start">
+          <mat-card-title>Kontaktirajte nas</mat-card-title>
+        </div>
+        <mat-card-content>
+          <div class="input-container">
+            <mat-form-field fxFlex="0 0 100%" appearance="fill">
+              <mat-label>Naslov</mat-label>
+              <input matInput ngModel name="title" required />
+              <mat-error> Naslov je obavezan. </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field fxFlex="0 0 100%" appearance="fill">
+              <mat-label>E-mail</mat-label>
+              <input matInput ngModel name="email" required email />
+              <mat-error> E-mail je obavezan. </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="input-container">
+            <mat-form-field fxFlex="0 0 100%" appearance="fill">
+              <mat-label>Sadržaj</mat-label>
+              <textarea
+                matInput
+                rows="9"
+                ngModel
+                name="content"
+                #contentArea
+                required
+                maxlength="1000"
+                placeholder="Uniste sadržaj poruke..."
+              ></textarea>
+              <mat-hint>{{ contentArea.value.length }} / 1000</mat-hint>
+              <mat-error> Sadržaj je obavezan. </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayoutAlign="center start">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!contactUsForm.valid"
+            >
+              Pošalji
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>

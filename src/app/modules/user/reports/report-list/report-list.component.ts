@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReportService } from 'src/app/shared/services/reports.service';
-import { Report } from '../../../shared/model/report.model';
+import { Report } from '../../../../shared/model/report.model';
 
 @Component({
   selector: 'app-report-list',

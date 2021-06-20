@@ -13,6 +13,13 @@
     routerLink="/add-report"
     >Dodaj prijavu</a
   >
+  <a
+    *ngIf="isEndUser || !isAuthenticated"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/contact-us"
+    >Kontaktirajte nas</a
+  >
 
   <a
     *ngIf="isAuthenticated && isAdmin"

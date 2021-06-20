@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Report } from '../../../../shared/model/report.model';
+import { Report } from '../../../../../shared/model/report.model';
 
 @Component({
   selector: 'app-report-item',

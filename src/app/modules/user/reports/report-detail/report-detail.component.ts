@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Report } from '../../../shared/model/report.model';
+import { Report } from '../../../../shared/model/report.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 

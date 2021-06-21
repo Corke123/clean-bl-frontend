@@ -6,6 +6,7 @@ import { AddEditStreetDialogComponent } from './streets/add-edit-street-dialog/a
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PartsOfTheCityComponent } from './parts-of-the-city/parts-of-the-city.component';
 import { AddEditPartOfTheCityComponent } from './parts-of-the-city/add-edit-part-of-the-city/add-edit-part-of-the-city.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AddEditPartOfTheCityComponent } from './parts-of-the-city/add-edit-part
     AddEditStreetDialogComponent,
     PartsOfTheCityComponent,
     AddEditPartOfTheCityComponent,
+    MessagesComponent,
   ],
   imports: [CoreModule, FormsModule, ReactiveFormsModule, RouterModule],
 })

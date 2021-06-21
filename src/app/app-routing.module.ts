@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
+import { MessagesComponent } from './modules/admin/messages/messages.component';
 import { PartsOfTheCityComponent } from './modules/admin/parts-of-the-city/parts-of-the-city.component';
 import { StreetsComponent } from './modules/admin/streets/streets.component';
 import { AuthGuard } from './modules/auth/auth.guard';
@@ -62,24 +63,29 @@ const routes: Routes = [
       // admin routes
       {
         path: 'admin',
-        redirectTo: '/admin/streets',
-        pathMatch: 'full',
-      },
-      {
-        path: 'admin/streets',
-        component: StreetsComponent,
         canActivate: [AuthGuard],
         data: {
           expectedRole: 'ROLE_Admin',
         },
-      },
-      {
-        path: 'admin/parts-of-the-city',
-        component: PartsOfTheCityComponent,
-        canActivate: [AuthGuard],
-        data: {
-          expectedRole: 'ROLE_Admin',
-        },
+        children: [
+          {
+            path: '',
+            redirectTo: 'streets',
+            pathMatch: 'full',
+          },
+          {
+            path: 'streets',
+            component: StreetsComponent,
+          },
+          {
+            path: 'parts-of-the-city',
+            component: PartsOfTheCityComponent,
+          },
+          {
+            path: 'messages',
+            component: MessagesComponent,
+          },
+        ],
       },
     ],
   },

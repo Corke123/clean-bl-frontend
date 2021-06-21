@@ -1,0 +1,153 @@
+<div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="15px">
+  <h1 class="header">Poruke</h1>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="20px"
+    class="actions-container"
+  >
+    <mat-form-field class="search-container">
+      <mat-label>Pretraži</mat-label>
+      <mat-icon matPrefix class="icon" color="primary">search</mat-icon>
+      <input
+        (input)="searchByTitle(searchInput.value)"
+        #searchInput
+        matInput
+        placeholder="Pretraži po naslovu"
+      />
+    </mat-form-field>
+    <mat-checkbox color="primary" (change)="searchAll($event.checked)"
+      >Sve poruke</mat-checkbox
+    >
+  </div>
+
+  <div class="table-container">
+    <mat-table
+      [dataSource]="dataSource"
+      class="table"
+      matSort
+      matSortActive="createdAt"
+      (matSortChange)="resetPaging()"
+    >
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Naslov</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row"
+          ><span class="ellipsis">{{ row.title }}</span></mat-cell
+        >
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Pošiljalac</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row"
+          ><span class="ellipsis">{{ row.email }}</span></mat-cell
+        >
+      </ng-container>
+
+      <!-- Content Column -->
+      <ng-container matColumnDef="content">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Kratak sadržaj</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row"
+          ><span class="ellipsis">{{ row.content }}</span></mat-cell
+        >
+      </ng-container>
+
+      <!-- Created at Column -->
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Datum</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{
+          row.createdAt | date: "dd.MM.yyyy."
+        }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="displayMessage(row)"
+      ></mat-row>
+    </mat-table>
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="5"
+      fxFlexAlign="end"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div fxLayout="column" class="message-container">
+    <div *ngIf="!selectedMessage">
+      <p>Izaberite jednu poruku iz tabele iznad...</p>
+    </div>
+    <div
+      *ngIf="selectedMessage"
+      fxLayout="column"
+      fxLayoutAlign="space-around stretch"
+      fxLayoutGap="20px"
+    >
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="title">{{ selectedMessage.title }}</h2>
+        <div class="date" fxLayout="column" fxLayoutAlign="space-around center">
+          <div class="date-label">Kreirano</div>
+          <div>{{ selectedMessage.createdAt | date: "dd.MM.yyyy." }}</div>
+        </div>
+      </div>
+      <div fxLayout="column">
+        <div class="subtitle">Poslao:</div>
+        <div>{{ selectedMessage.email }}</div>
+      </div>
+      <div fxLayout="column">
+        <div class="subtitle">Sardžaj:</div>
+        <p>{{ selectedMessage.content }}</p>
+      </div>
+      <form
+        #messageForm="ngForm"
+        (ngSubmit)="onSubmit(messageForm)"
+        *ngIf="!selectedMessage.replied"
+      >
+        <div fxLayout="column">
+          <mat-form-field fxFlex="0 0 100%" appearance="fill">
+            <mat-label>Odgovor</mat-label>
+            <textarea
+              matInput
+              rows="4"
+              ngModel
+              name="reply"
+              #replyArea
+              required
+              maxlength="1000"
+              placeholder="Uniste odgovor na poruku..."
+            ></textarea>
+            <mat-hint>{{ replyArea.value.length }} / 1000</mat-hint>
+            <mat-error> Sadržaj je obavezan. </mat-error>
+          </mat-form-field>
+          <div fxLayoutAlign="center start">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!messageForm.valid"
+            >
+              Odgovori
+            </button>
+          </div>
+        </div>
+      </form>
+      <div fxLayout="column" *ngIf="selectedMessage.replied">
+        <div class="subtitle">Odgovor:</div>
+        <p>{{ selectedMessage.response }}</p>
+      </div>
+    </div>
+  </div>
+</div>

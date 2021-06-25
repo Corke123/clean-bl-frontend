@@ -104,7 +104,6 @@ export class MessagesComponent implements AfterViewInit {
   }
 
   onSubmit(form: NgForm): void {
-    console.log(form);
     if (!form.value) {
       return;
     }
@@ -112,8 +111,6 @@ export class MessagesComponent implements AfterViewInit {
     const replyMessage = {
       replyMessage: form.value.reply,
     };
-
-    console.log(replyMessage);
 
     this.contactUsService
       .sendReply(this.selectedMessage.id, replyMessage)

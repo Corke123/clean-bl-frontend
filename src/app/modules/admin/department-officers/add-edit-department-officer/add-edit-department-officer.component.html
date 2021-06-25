@@ -1,0 +1,89 @@
+<h1 mat-dialog-title>
+  {{
+    data.action === "ADD"
+      ? "Dodaj službenika odjeljenja"
+      : "Izmijeni službenika odjeljenja"
+  }}
+</h1>
+<form [formGroup]="form">
+  <div mat-dialog-content fxLayout="column">
+    <mat-form-field>
+      <mat-label>Ime</mat-label>
+      <input
+        matInput
+        [ngModel]="data.departmentOfficer?.firstName"
+        required
+        formControlName="firstName"
+        autocomplete="off"
+      />
+      <mat-error>Ime je obavezno.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Prezime</mat-label>
+      <input
+        matInput
+        [ngModel]="data.departmentOfficer?.lastName"
+        required
+        formControlName="lastName"
+        autocomplete="off"
+      />
+      <mat-error>Prezime je obavezno.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Korisničko ime</mat-label>
+      <input
+        matInput
+        [ngModel]="data.departmentOfficer?.username"
+        required
+        formControlName="username"
+        autocomplete="off"
+      />
+      <mat-error>Korisničko ime je obavezno.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        [ngModel]="data.departmentOfficer?.email"
+        required
+        formControlName="email"
+        autocomplete="off"
+      />
+      <mat-error>Unesite validan email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nadležno odjeljenje</mat-label>
+      <mat-select
+        formControlName="department"
+        required
+        [ngModel]="data.departmentOfficer?.department"
+        [compareWith]="compareDepartments"
+      >
+        <mat-option
+          *ngFor="let department of departments"
+          [value]="department.name"
+        >
+          {{ department.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Nadležno odjeljenje je obavezno.</mat-error>
+    </mat-form-field>
+  </div>
+  <div
+    mat-dialog-actions
+    fxLayout="row"
+    fxLayoutAlign="end center"
+    fxLayoutGap="20px"
+  >
+    <button mat-button color="primary" (click)="close()">Odustani</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      type="submit"
+      (click)="save()"
+    >
+      Sačuvaj
+    </button>
+  </div>
+</form>

@@ -25,6 +25,15 @@
     *ngIf="isAuthenticated && isAdmin"
     mat-list-item
     routerLinkActive="list-item-active"
+    routerLink="/admin/department-officers"
+  >
+    <mat-icon color="primary">manage_accounts</mat-icon>
+    Službenici odjeljenja</a
+  >
+  <a
+    *ngIf="isAuthenticated && isAdmin"
+    mat-list-item
+    routerLinkActive="list-item-active"
     routerLink="/admin/parts-of-the-city"
   >
     <mat-icon color="primary">location_city</mat-icon>

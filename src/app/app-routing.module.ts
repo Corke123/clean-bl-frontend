@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
+import { DepartmentOfficersComponent } from './modules/admin/department-officers/department-officers.component';
 import { MessagesComponent } from './modules/admin/messages/messages.component';
 import { PartsOfTheCityComponent } from './modules/admin/parts-of-the-city/parts-of-the-city.component';
 import { StreetsComponent } from './modules/admin/streets/streets.component';
@@ -70,8 +71,12 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'streets',
+            redirectTo: 'department-officers',
             pathMatch: 'full',
+          },
+          {
+            path: 'department-officers',
+            component: DepartmentOfficersComponent,
           },
           {
             path: 'streets',

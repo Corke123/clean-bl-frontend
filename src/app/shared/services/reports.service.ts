@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Report } from '../model/report.model';
 import { Comment } from '../model/comment.model';
 import { ReportPayload } from '../model/report-payload.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class ReportService {
     return this.http.post<Report>(`${this.baseURL}`, report);
   }
 
-  public getReports() {
-    return this.http.get<Report[]>(`${this.baseURL}`);
+  public getReports(page: number, size: number): Observable<any> {
+    return this.http.get<Report[]>(`${this.baseURL}?page=${page}&size=${size}`);
   }
 
   public getReportById(id: number) {

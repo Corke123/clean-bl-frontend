@@ -1,3 +1,7 @@
 :host {
   flex-wrap: wrap;
 }
+
+.actions-container {
+  width: 100%;
+}

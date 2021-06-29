@@ -1,3 +1,7 @@
+<div class="actions-container">
+  <mat-paginator [length]="totalElements" [pageSizeOptions]="[12, 24, 48]">
+  </mat-paginator>
+</div>
 <app-report-item
   *ngFor="let report of reports"
   [report]="report"

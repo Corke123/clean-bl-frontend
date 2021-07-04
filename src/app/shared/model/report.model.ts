@@ -7,5 +7,8 @@ export interface Report {
   street: string;
   partOfTheCity: string;
   department: string;
+  departmentService?: string;
+  valid: boolean;
+  processed?: Date;
   base64Image: string;
 }

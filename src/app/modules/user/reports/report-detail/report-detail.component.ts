@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Report } from '../../../../shared/model/report.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-report-detail',
@@ -20,7 +21,8 @@ export class ReportDetailComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public media: MediaObserver
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,14 @@ export class ReportDetailComponent implements OnInit {
         }
       );
     });
+  }
+
+  isCompleted(): boolean {
+    return this.report?.status === 'zavrsen';
+  }
+
+  isMobile(): boolean {
+    return this.media.isActive('xs');
   }
 
   transform() {

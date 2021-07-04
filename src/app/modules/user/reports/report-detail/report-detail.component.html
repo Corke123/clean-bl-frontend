@@ -1,95 +1,106 @@
-<div fxLayout="column" class="container">
+<div fxLayout="column" fxLayoutGap="20px" class="container">
   <div fxLayout="row wrap">
-    <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
-      <div class="info">
-        <h1>
-          <div fxLayout="row">
-            <mat-icon color="primary">local_offer</mat-icon>
-            Id: {{ report?.id }}
+    <div
+      fxLayout="column"
+      fxFlex="60"
+      fxFlex.lt-md="100"
+      fxLayoutGap="20px"
+      class="report-info"
+    >
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between center"
+        class="report-header"
+      >
+        <div fxLayout="row" fxFlex="60" class="id">
+          <mat-icon color="primary">local_offer</mat-icon>
+          Id: {{ report?.id }}
+        </div>
+        <div fxFlex="40">
+          <div
+            *ngIf="report?.status"
+            appStatusDirective
+            [status]="report.status"
+            [valid]="report.valid"
+            class="status status-container"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-icon></mat-icon>
+            <span class="status-label"></span>
           </div>
-        </h1>
+        </div>
       </div>
       <mat-divider></mat-divider>
-      <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">person</mat-icon>
-            Prijavio korisnik:
-          </div>
-        </h3>
-        {{ report?.userReported }}
+      <div fxLayout="row wrap">
+        <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
+          <mat-icon color="primary">person</mat-icon>
+          <span class="label">Prijavio korisnik</span>
+          {{ report?.userReported }}
+        </div>
+        <mat-divider *ngIf="isMobile()"></mat-divider>
+        <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
+          <mat-icon color="primary">reorder</mat-icon>
+          <span class="label">Nadležno odjeljenje</span>
+          {{ report?.department }}
+        </div>
       </div>
       <mat-divider></mat-divider>
-      <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">reorder</mat-icon>
-            Nadležno odjeljenje:
-          </div>
-        </h3>
-        {{ report?.department }}
+      <div fxLayout="row wrap">
+        <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
+          <mat-icon color="primary">calendar_today</mat-icon>
+          <span class="label">Prijavljeno</span>
+          {{ report?.createdAt | date: "dd.MM.yyyy." }}
+        </div>
+        <mat-divider *ngIf="isMobile()"></mat-divider>
+        <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
+          <mat-icon color="primary">location_on</mat-icon>
+          <span class="label">Lokacija</span> {{ report?.street }},
+          {{ report?.partOfTheCity }}
+        </div>
       </div>
       <mat-divider></mat-divider>
-    </div>
-    <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
-      <img [src]="transform()" alt="Report image" />
-    </div>
-  </div>
-  <div fxLayout="row wrap">
-    <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
       <div class="info">
         <h3>
           <div fxLayout="row">
             <mat-icon color="primary">description</mat-icon>
-            Opis:
+            <span class="label">Opis</span>
           </div>
         </h3>
-        <p>{{ report?.description }}</p>
+        <div class="description-container">
+          <p>{{ report?.description }}</p>
+        </div>
       </div>
       <mat-divider></mat-divider>
-      <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">location_on</mat-icon>
-            Lokacija:
-          </div>
-        </h3>
-        {{ report?.street }}, {{ report?.partOfTheCity }}
+      <div fxLayout="row wrap">
+        <div
+          fxLayout="row"
+          fxFlex="50"
+          fxFlex.lt-sm="100"
+          *ngIf="isCompleted() && report.valid"
+        >
+          <mat-icon color="primary">engineering</mat-icon>
+          <span class="label">Obradio</span>
+          {{ report?.departmentService }}
+        </div>
+        <mat-divider *ngIf="isMobile()"></mat-divider>
+        <div
+          fxLayout="row"
+          fxFlex="50"
+          fxFlex.lt-sm="100"
+          *ngIf="isCompleted()"
+        >
+          <mat-icon color="primary">event_available</mat-icon>
+          <span class="label">Obrađeno</span>
+          {{ report?.processed | date: "dd.MM.yyyy." }}
+        </div>
       </div>
-      <mat-divider></mat-divider>
     </div>
-    <div fxLayout="column" fxFlex="50%" fxFlex.xs="100%">
-      <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">info</mat-icon>
-            Status:
-          </div>
-        </h3>
-        <mat-icon color="primary" *ngIf="report?.status === 'received'"
-          >pending</mat-icon
-        >
-        <mat-icon color="primary" *ngIf="report?.status === 'processing'"
-          >fact_check</mat-icon
-        >
-        <mat-icon color="primary" *ngIf="report?.status === 'finished'"
-          >check_circle</mat-icon
-        >
-        <span>{{ report?.status }}</span>
-      </div>
-      <mat-divider></mat-divider>
-      <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">calendar_today</mat-icon>
-            Prijavljeno:
-          </div>
-        </h3>
-        {{ report?.createdAt | date: "dd.MM.yyyy." }}
-      </div>
-      <mat-divider></mat-divider>
+    <div fxLayut="row" fxFlex="40" fxFlex.lt-md="100" class="report-img">
+      <img [src]="transform()" alt="Report image" />
     </div>
   </div>
+
   <div>
     <app-comment-list
       *ngIf="report"

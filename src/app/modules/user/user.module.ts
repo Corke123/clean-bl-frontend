@@ -11,6 +11,7 @@ import { ReportDetailComponent } from './reports/report-detail/report-detail.com
 import { ReportItemComponent } from './reports/report-list/report-item/report-item.component';
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { ReportsComponent } from './reports/reports.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,6 @@ import { ReportsComponent } from './reports/reports.component';
     AddCommentComponent,
     AddReportComponent,
   ],
-  imports: [CoreModule, FormsModule, RouterModule],
+  imports: [CoreModule, FormsModule, RouterModule, SharedModule],
 })
 export class UserModule {}

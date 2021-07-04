@@ -8,9 +8,18 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { StatusDirectiveDirective } from './directives/status-directive.directive';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SidebarComponent, ConfirmationDialogComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    ConfirmationDialogComponent,
+    StatusDirectiveDirective,
+    PageNotFoundComponent,
+  ],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -18,6 +27,12 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     RouterModule,
     HttpClientModule,
   ],
-  exports: [HeaderComponent, FooterComponent, SidebarComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    StatusDirectiveDirective,
+    PageNotFoundComponent,
+  ],
 })
 export class SharedModule {}

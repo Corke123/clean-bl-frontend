@@ -104,7 +104,7 @@ export class MessagesComponent implements AfterViewInit {
   }
 
   onSubmit(form: NgForm): void {
-    if (!form.value) {
+    if (!form.valid) {
       return;
     }
 

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if (!form.value) {
+    if (!form.valid) {
       return;
     }
     const username = form.value.username;

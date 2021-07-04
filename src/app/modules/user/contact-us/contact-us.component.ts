@@ -20,7 +20,7 @@ export class ContactUsComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(form: NgForm): void {
-    if (!form.value) {
+    if (!form.valid) {
       return;
     }
 

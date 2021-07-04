@@ -31,7 +31,7 @@ export class ReportDetailComponent implements OnInit {
         },
         () => {
           this.commonService.showSnackBar('Nije moguće pronaći prijavu!');
-          this.router.navigate([''], {
+          this.router.navigate(['/404'], {
             relativeTo: this.route.parent,
           });
         }

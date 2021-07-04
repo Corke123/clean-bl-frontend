@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { AuthModule } from 'src/app/modules/auth/auth.module';
 import { AdminModule } from 'src/app/modules/admin/admin.module';
 import { UserModule } from 'src/app/modules/user/user.module';
+import { DepartmentOfficerModule } from 'src/app/modules/department-officer/department-officer.module';
 
 @NgModule({
   declarations: [DefaultComponent],
@@ -22,6 +23,7 @@ import { UserModule } from 'src/app/modules/user/user.module';
     AuthModule,
     UserModule,
     AdminModule,
+    DepartmentOfficerModule,
   ],
 })
 export class DefaultModule {}

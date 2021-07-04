@@ -4,21 +4,27 @@
     mat-list-item
     routerLinkActive="list-item-active"
     routerLink="/reports"
-    >Prijave</a
+  >
+    <mat-icon color="primary">description</mat-icon>
+    Prijave</a
   >
   <a
     *ngIf="isAuthenticated && isEndUser"
     mat-list-item
     routerLinkActive="list-item-active"
     routerLink="/add-report"
-    >Dodaj prijavu</a
+  >
+    <mat-icon color="primary">post_add</mat-icon>
+    Dodaj prijavu</a
   >
   <a
     *ngIf="isEndUser || !isAuthenticated"
     mat-list-item
     routerLinkActive="list-item-active"
     routerLink="/contact-us"
-    >Kontaktirajte nas</a
+  >
+    <mat-icon color="primary">forward_to_inbox</mat-icon>
+    Kontaktirajte nas</a
   >
 
   <a
@@ -56,5 +62,15 @@
   >
     <mat-icon color="primary">email</mat-icon>
     Poruke</a
+  >
+
+  <a
+    *ngIf="isAuthenticated && isDepartmentOfficer"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/management/manage-reports"
+  >
+    <mat-icon color="primary">description</mat-icon>
+    Prijave</a
   >
 </mat-nav-list>

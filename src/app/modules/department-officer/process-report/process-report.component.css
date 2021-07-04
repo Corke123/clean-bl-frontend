@@ -1,0 +1,38 @@
+.container {
+  height: 98%;
+}
+
+.report-header {
+  margin-bottom: 20px !important;
+}
+
+.id {
+  font-size: 32px;
+}
+
+mat-icon {
+  margin-right: 10px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.label {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.label::after {
+  content: ":";
+}
+
+.step-1,
+.modify-form,
+.final-step {
+  height: 100%;
+}
+
+.completed-info {
+  width: 59%;
+}

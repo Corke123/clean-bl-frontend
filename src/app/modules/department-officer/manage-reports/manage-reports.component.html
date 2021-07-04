@@ -1,0 +1,82 @@
+<div
+  fxLayout="column"
+  fxLayoutAlign="start start"
+  fxLayoutGap="15px"
+  class="container"
+>
+  <h1 class="header">Prijave</h1>
+  <div class="table-container">
+    <mat-table
+      [dataSource]="dataSource"
+      class="table"
+      matSort
+      matSortActive="createdAt"
+      (matSortChange)="resetPaging()"
+    >
+      <!-- CreatedAt Column -->
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Podneseno</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row">{{
+          row.createdAt | date: "dd.MM.yyyy."
+        }}</mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Kratak opis</mat-header-cell>
+        <mat-cell *matCellDef="let row"
+          ><span class="ellipsis">{{ row.description }}</span></mat-cell
+        >
+      </ng-container>
+
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef>Korisnik</mat-header-cell>
+        <mat-cell *matCellDef="let row"
+          ><span class="ellipsis">{{ row.userReported }}</span></mat-cell
+        >
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div
+            appStatusDirective
+            [status]="row.status"
+            [valid]="row.valid"
+            class="status"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-icon></mat-icon>
+            <span class="status-label"></span></div
+        ></mat-cell>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row"
+          ><a [routerLink]="[row.id]" class="process-report"
+            >Obradi</a
+          ></mat-cell
+        >
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="totalElements"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageSize]="10"
+      fxFlexAlign="end"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -8,17 +8,25 @@ import { StreetsComponent } from './modules/admin/streets/streets.component';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
+import { ManageReportsComponent } from './modules/department-officer/manage-reports/manage-reports.component';
+import { ManagementComponent } from './modules/department-officer/management/management.component';
+import { ProcessReportComponent } from './modules/department-officer/process-report/process-report.component';
 import { ContactUsComponent } from './modules/user/contact-us/contact-us.component';
 import { AddReportComponent } from './modules/user/reports/add-report/add-report.component';
 import { ReportDetailComponent } from './modules/user/reports/report-detail/report-detail.component';
 import { ReportListComponent } from './modules/user/reports/report-list/report-list.component';
 import { ReportsComponent } from './modules/user/reports/reports.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DefaultComponent,
     children: [
+      {
+        path: '404',
+        component: PageNotFoundComponent,
+      },
       // reports routes
       {
         path: '',
@@ -59,6 +67,36 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent,
+      },
+
+      // department-officer routes
+      {
+        path: 'management',
+        canActivate: [AuthGuard],
+        data: {
+          expectedRole: 'ROLE_DepartmentOfficer',
+        },
+        children: [
+          {
+            path: '',
+            redirectTo: 'manage-reports',
+            pathMatch: 'full',
+          },
+          {
+            path: 'manage-reports',
+            component: ManagementComponent,
+            children: [
+              {
+                path: '',
+                component: ManageReportsComponent,
+              },
+              {
+                path: ':id',
+                component: ProcessReportComponent,
+              },
+            ],
+          },
+        ],
       },
 
       // admin routes

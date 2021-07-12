@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'src/app/core/core.module';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AddReportComponent } from './reports/add-report/add-report.component';
 import { AddCommentComponent } from './reports/report-detail/add-comment/add-comment.component';

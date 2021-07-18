@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DepartmentService } from 'src/app/shared/services/department.service';
 import { Department } from 'src/app/shared/model/department.model';
-import { PartOfTheCity } from 'src/app/shared/model/part-of-the-city.model';
 import { ReportPayload } from 'src/app/shared/model/report-payload.model';
 import { ReportService } from 'src/app/shared/services/reports.service';
 import { Router } from '@angular/router';
-import { PartOfTheCityService } from 'src/app/shared/services/part-of-the-city.service';
+import { MouseEvent } from '@agm/core';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-add-report',
@@ -16,32 +16,43 @@ import { PartOfTheCityService } from 'src/app/shared/services/part-of-the-city.s
 export class AddReportComponent implements OnInit {
   departments: Department[];
 
-  locations: PartOfTheCity[];
-
   imageUrl: any;
   imagePath: string;
   wrongFormat: string;
   base64Image: string;
   isLoading = false;
+  longitude = 17.189477703187666;
+  latitude = 44.77066191443469;
+  selectedLongitude: number;
+  selectedLatitude: number;
 
   constructor(
-    private partOfTheCityService: PartOfTheCityService,
     private departmentService: DepartmentService,
     private reportService: ReportService,
-    private router: Router
+    private router: Router,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
-    this.partOfTheCityService
-      .getPartsOfTheCity()
-      .subscribe((loc: PartOfTheCity[]) => {
-        this.locations = loc;
-      });
     this.departmentService
       .getDepartments()
       .subscribe((departments: Department[]) => {
         this.departments = departments;
       });
+    navigator.geolocation.getCurrentPosition(
+      (resp) => {
+        this.longitude = resp.coords.longitude;
+        this.latitude = resp.coords.latitude;
+        this.selectedLongitude = this.longitude;
+        this.selectedLatitude = this.latitude;
+      },
+      () => {
+        alert(
+          'Lokacija nije podržana. Lokaciju morate odabrati ručno klikom na mapu!'
+        );
+      },
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+    );
   }
 
   onFileSelected(files) {
@@ -72,27 +83,42 @@ export class AddReportComponent implements OnInit {
     }
   }
 
+  onChooseLocation(event): void {
+    this.selectedLongitude = event.coords.lng;
+    this.selectedLatitude = event.coords.lat;
+  }
+
+  onMarkerDragEnd(event: MouseEvent): void {
+    this.selectedLongitude = event.coords.lng;
+    this.selectedLatitude = event.coords.lat;
+  }
+
+  isLocationSelected(): boolean {
+    return !this.selectedLatitude || !this.selectedLongitude;
+  }
+
   onSubmit(reportForm: NgForm) {
     if (!reportForm.valid) {
       return;
     }
 
-    const departmentName = reportForm.value.category;
+    const title = reportForm.value.title;
     const description = reportForm.value.description;
-    const street = reportForm.value.location.split('#')[1];
-    const partOfTheCity = reportForm.value.location.split('#')[0];
+    const departmentName = reportForm.value.category;
 
     this.isLoading = true;
 
     const reportPayload: ReportPayload = {
+      title: title,
       departmentName: departmentName,
       description: description,
-      street: street,
-      partOfTheCity: partOfTheCity,
       base64Image: this.base64Image,
+      longitude: +this.selectedLongitude.toFixed(6),
+      latitude: +this.selectedLatitude.toFixed(6),
     };
 
     this.reportService.storeReport(reportPayload).subscribe(() => {
+      this.commonService.showSnackBar('Uspješno ste dodali prijavu');
       this.router.navigateByUrl('/reports');
     });
   }

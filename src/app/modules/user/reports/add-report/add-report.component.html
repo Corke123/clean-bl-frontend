@@ -1,109 +1,132 @@
-<div class="container">
-  <h1>Popunite tražena polja</h1>
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+  <h1 class="header">Nova prijava</h1>
+  <mat-divider></mat-divider>
   <form #reportForm="ngForm" (ngSubmit)="onSubmit(reportForm)">
-    <div fxLayout="row wrap" fxLayoutGap="10px">
-      <mat-form-field
-        fxFlex.gt-sm="calc(50% - 20px)"
-        fxFlex.sm="100%"
-        fxFlex.lt-sm="100%"
-      >
-        <mat-label>Kategorija</mat-label>
-        <mat-icon color="primary" matPrefix>list</mat-icon>
-        <mat-select ngModel name="category" required>
-          <mat-option
-            *ngFor="let department of departments"
-            [value]="department.name"
-          >
-            {{ department.name }}
-          </mat-option>
-        </mat-select>
-        <mat-error> Kategorija je obavezna. </mat-error>
-      </mat-form-field>
-      <mat-form-field
-        fxFlex.gt-sm="calc(50% - 20px)"
-        fxFlex.sm="100%"
-        fxFlex.lt-sm="100%"
-      >
-        <mat-label>Lokacija</mat-label>
-        <mat-icon matPrefix color="primary">location_on</mat-icon>
-        <mat-select name="location" ngModel required>
-          <mat-optgroup
-            *ngFor="let location of locations"
-            [label]="location.name"
-          >
-            <mat-option
-              *ngFor="let street of location.streets"
-              [value]="location.name + '#' + street.name"
-            >
-              {{ street.name }}
-            </mat-option>
-          </mat-optgroup>
-        </mat-select>
-        <mat-error> Lokacija je obavezna. </mat-error>
-      </mat-form-field>
-      <mat-form-field fxFlex="100%">
-        <mat-label>Opis</mat-label>
-        <mat-icon matPrefix color="primary">description</mat-icon>
-        <textarea
-          matInput
-          name="description"
-          ngModel
-          required
-          placeholder="Opišite nam šta je problem."
-        ></textarea>
-        <mat-error> Opis je obavezan. </mat-error>
-      </mat-form-field>
-
-      <mat-form-field fxFlex="100%">
-        <mat-label>Dodaj sliku</mat-label>
-        <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
-        <input
-          matInput
-          name="imageValue"
-          [ngModel]="imagePath"
-          readonly
-          required
-        />
-        <button
-          matSuffix
-          type="button"
-          mat-raised-button
-          (click)="fileInput.click()"
-          color="primary"
-          fxFlexAlign="center"
+    <div fxLayout="column" fxLayoutGap="20px">
+      <div fxLayout="row wrap" fxLayoutGap="10px">
+        <div
+          fxLayout="column"
+          fxFlex="calc(50% - 5px)"
+          fxFlex.lt-md="100"
+          fxLayoutGap="20px"
         >
-          Izaberi sliku
-        </button>
-        <mat-error>
-          {{ wrongFormat }}
-        </mat-error>
-        <input
-          hidden
-          (change)="onFileSelected(fileInput.files)"
-          #fileInput
-          type="file"
-          id="file"
-          data-max-size="2048"
-        />
-      </mat-form-field>
-      <div fxFlex="0 100 100%">
-        <div fxFlex fxFlex.fxFlex.gt-md="0 100 50%" *ngIf="imageUrl">
-          <img
-            mat-card-image
-            class="image"
-            [src]="imageUrl"
-            alt=" {{ imageUrl }}"
-          />
+          <mat-form-field appearance="fill">
+            <mat-label>Naslov</mat-label>
+            <input type="text" matInput name="title" ngModel required />
+            <mat-error> Naslov je obavezan!</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Opis</mat-label>
+            <textarea
+              matInput
+              name="description"
+              ngModel
+              required
+              #descriptionArea
+              rows="15"
+              maxlength="1000"
+              placeholder="Opišite nam šta je problem."
+            ></textarea>
+            <mat-hint>{{ descriptionArea.value.length }} / 1000</mat-hint>
+            <mat-error> Opis je obavezan! </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Kategorija</mat-label>
+            <mat-icon color="primary" matPrefix>list</mat-icon>
+            <mat-select ngModel name="category" required>
+              <mat-option
+                *ngFor="let department of departments"
+                [value]="department.name"
+              >
+                {{ department.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error> Kategorija je obavezna. </mat-error>
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="column"
+          fxLayout="column"
+          fxFlex="calc(50% - 5px)"
+          fxFlex.lt-md="100"
+          fxLayoutGap="20px"
+        >
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" class="image-input">
+              <mat-label>Dodaj sliku</mat-label>
+              <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
+              <input
+                matInput
+                name="imageValue"
+                [ngModel]="imagePath"
+                readonly
+                required
+              />
+
+              <mat-error>
+                {{ wrongFormat }}
+              </mat-error>
+              <input
+                hidden
+                (change)="onFileSelected(fileInput.files)"
+                #fileInput
+                type="file"
+                id="file"
+                data-max-size="2048"
+              />
+            </mat-form-field>
+            <button
+              matSuffix
+              type="button"
+              mat-raised-button
+              (click)="fileInput.click()"
+              color="primary"
+              class="image-upload-btn"
+            >
+              Izaberi sliku
+            </button>
+          </div>
+
+          <div fxFlex="0 100 100%">
+            <div
+              fxFlex
+              fxFlex.lg="0 100 75%"
+              fxFlex.gt-lg="0 100 50%"
+              *ngIf="imageUrl"
+            >
+              <img
+                mat-card-image
+                class="image"
+                [src]="imageUrl"
+                alt=" {{ imageUrl }}"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div fxFlex fxLayoutAlign="center start">
+      <div class="map-container">
+        <agm-map
+          [longitude]="longitude"
+          [latitude]="latitude"
+          [zoom]="16"
+          (mapClick)="onChooseLocation($event)"
+        >
+          <agm-marker
+            [latitude]="selectedLatitude"
+            [longitude]="selectedLongitude"
+            [markerDraggable]="true"
+            (dragEnd)="onMarkerDragEnd($event)"
+          ></agm-marker>
+        </agm-map>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
         <button
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="!reportForm.valid"
+          [disabled]="!reportForm.valid || isLocationSelected()"
         >
-          Potvrdi
+          Pošalji
         </button>
       </div>
     </div>

@@ -1,12 +1,13 @@
 export interface Report {
   id: number;
   userReported: string;
+  title: string;
   description: string;
   createdAt: Date;
   status: string;
-  street: string;
-  partOfTheCity: string;
   department: string;
+  longitude: number;
+  latitude: number;
   departmentService?: string;
   valid: boolean;
   processed?: Date;

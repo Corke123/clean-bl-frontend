@@ -12,6 +12,7 @@ import { ReportItemComponent } from './reports/report-list/report-item/report-it
 import { ReportListComponent } from './reports/report-list/report-list.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AddCommentComponent,
     AddReportComponent,
   ],
-  imports: [CoreModule, FormsModule, RouterModule, SharedModule],
+  imports: [CoreModule, FormsModule, RouterModule, SharedModule, AgmCoreModule],
 })
 export class UserModule {}

@@ -6,11 +6,6 @@
     <span>CleanBL</span>
     <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
       <ul fxLayout="row" fxLayoutGap="20px">
-        <li>
-          <button mat-icon-button>
-            <mat-icon>help_outline</mat-icon>
-          </button>
-        </li>
         <li *ngIf="!isAuthenticated">
           <a routerLink="/login">
             <button mat-icon-button [fxHide.xs]="false" [fxHide]="true">

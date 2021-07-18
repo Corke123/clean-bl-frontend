@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { DepartmentOfficersComponent } from './modules/admin/department-officers/department-officers.component';
 import { MessagesComponent } from './modules/admin/messages/messages.component';
-import { PartsOfTheCityComponent } from './modules/admin/parts-of-the-city/parts-of-the-city.component';
-import { StreetsComponent } from './modules/admin/streets/streets.component';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
@@ -115,14 +113,6 @@ const routes: Routes = [
           {
             path: 'department-officers',
             component: DepartmentOfficersComponent,
-          },
-          {
-            path: 'streets',
-            component: StreetsComponent,
-          },
-          {
-            path: 'parts-of-the-city',
-            component: PartsOfTheCityComponent,
           },
           {
             path: 'messages',

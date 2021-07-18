@@ -4,8 +4,11 @@ mat-divider {
 }
 
 .info {
-  padding: 10px;
-  height: 100%;
+  padding: 10px 0;
+}
+
+.info p {
+  margin-top: 10px;
 }
 
 img {
@@ -28,8 +31,8 @@ mat-icon {
   margin-bottom: 20px !important;
 }
 
-.id {
-  font-size: 32px;
+.title {
+  font-size: 24px;
 }
 
 mat-icon {
@@ -37,7 +40,18 @@ mat-icon {
 }
 
 img {
-  max-width: 100%;
+  height: 300px;
+  width: 400px;
+}
+
+.status-lbl {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #bdbdbd;
 }
 
 .label {
@@ -45,6 +59,7 @@ img {
   margin-right: 10px;
 }
 
+.status-lbl::after,
 .label::after {
   content: ":";
 }
@@ -57,4 +72,13 @@ img {
 
 .completed-info {
   width: 59%;
+}
+
+.map-container {
+  height: 300px;
+  width: 400px;
+}
+
+agm-map {
+  height: 100%;
 }

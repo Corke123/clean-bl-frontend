@@ -1,7 +1,8 @@
 export interface ReportPayload {
+  title: string;
+  description: string;
   base64Image: string;
   departmentName: string;
-  description: string;
-  partOfTheCity: string;
-  street: string;
+  latitude: number;
+  longitude: number;
 }

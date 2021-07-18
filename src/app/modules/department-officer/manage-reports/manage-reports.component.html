@@ -19,7 +19,7 @@
           >Podneseno</mat-header-cell
         >
         <mat-cell *matCellDef="let row">{{
-          row.createdAt | date: "dd.MM.yyyy."
+          row.createdAt | date: "short"
         }}</mat-cell>
       </ng-container>
 

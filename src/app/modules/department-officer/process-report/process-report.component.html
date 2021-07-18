@@ -1,19 +1,19 @@
 <div fxLayout="column" class="container" fxLayoutGap="40px">
   <h1 class="header">Obrada prijave</h1>
   <div fxLayout="row" fxLayoutGap="20px">
-    <div fxLayout="column" fxFlex="60" fxLayoutGap="20px" class="report-info">
+    <div fxLayout="column" fxFlex="70" fxLayoutGap="20px" class="report-info">
       <div
-        fxLayout="row"
+        fxLayout="row wrap"
         fxLayoutAlign="space-between center"
         class="report-header"
       >
-        <div fxLayout="row" fxFlex="70" class="id">
-          <mat-icon color="primary">local_offer</mat-icon>
-          Id: {{ report?.id }}
+        <div fxLayout="row" fxFlex="60" class="title">
+          <mat-icon color="primary">flag</mat-icon>
+          {{ report?.title }}
         </div>
-        <div fxFlex="30">
+        <div fxFlex="40" fxLayout="column" fxLayoutAlign="start center">
+          <div class="status-lbl">status</div>
           <div
-            fxFlex="50"
             *ngIf="report?.status"
             appStatusDirective
             [status]="report.status"
@@ -45,159 +45,167 @@
         <div fxLayout="row" fxFlex="50">
           <mat-icon color="primary">calendar_today</mat-icon>
           <span class="label">Prijavljeno</span>
-          {{ report?.createdAt | date: "dd.MM.yyyy." }}
-        </div>
-        <div fxLayout="row" fxFlex="50">
-          <mat-icon color="primary">location_on</mat-icon>
-          <span class="label">Lokacija</span> {{ report?.street }},
-          {{ report?.partOfTheCity }}
+          {{ report?.createdAt | date: "short" }}
         </div>
       </div>
       <mat-divider></mat-divider>
       <div class="info">
-        <h3>
-          <div fxLayout="row">
-            <mat-icon color="primary">description</mat-icon>
-            <span class="label">Opis</span>
-          </div>
-        </h3>
+        <div fxLayout="row">
+          <mat-icon color="primary">description</mat-icon>
+          <span class="label">Opis</span>
+        </div>
         <div class="description-container">
           <p>{{ report?.description }}</p>
         </div>
       </div>
-    </div>
-    <div fxLayut="row" fxFlex="40" class="report-img">
-      <img [src]="transform()" alt="Report image" />
-    </div>
-  </div>
-  <div fxLayout="row" class="completed-info">
-    <div fxLayout="row" fxFlex="50" *ngIf="isCompleted() && report.valid">
-      <mat-icon color="primary">engineering</mat-icon>
-      <span class="label">Obradio</span>
-      {{ report?.departmentService }}
-    </div>
-    <div fxLayout="row" fxFlex="50" *ngIf="isCompleted()">
-      <mat-icon color="primary">event_available</mat-icon>
-      <span class="label">Obrađeno</span>
-      {{ report?.processed | date: "dd.MM.yyyy." }}
-    </div>
-  </div>
-  <div
-    *ngIf="step1 && !modify"
-    fxLayout="row"
-    fxLayoutAlign="start end"
-    class="step-1"
-    fxLayoutGap="10px"
-  >
-    <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-      <button mat-stroked-button color="primary" (click)="setModify()">
-        Modifikuj
-      </button>
-      <button mat-raised-button color="primary" (click)="setStep2()">
-        Nastavi
-      </button>
-      <button mat-raised-button color="warn" (click)="rejectReport()">
-        Odbij
-      </button>
-    </div>
-  </div>
+      <div fxLayout="row" class="completed-info">
+        <div fxLayout="row" fxFlex="50" *ngIf="isCompleted() && report.valid">
+          <mat-icon color="primary">engineering</mat-icon>
+          <span class="label">Obradio</span>
+          {{ report?.departmentService }}
+        </div>
+        <div fxLayout="row" fxFlex="50" *ngIf="isCompleted()">
+          <mat-icon color="primary">event_available</mat-icon>
+          <span class="label">Obrađeno</span>
+          {{ report?.processed | date: "short" }}
+        </div>
+      </div>
+      <div
+        *ngIf="step1 && !modify"
+        fxLayout="row"
+        fxLayoutAlign="start end"
+        class="step-1"
+        fxLayoutGap="10px"
+      >
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <button mat-stroked-button color="primary" (click)="setModify()">
+            Modifikuj
+          </button>
+          <button mat-raised-button color="primary" (click)="setStep2()">
+            Nastavi
+          </button>
+          <button mat-raised-button color="warn" (click)="rejectReport()">
+            Odbij
+          </button>
+        </div>
+      </div>
 
-  <form
-    #modifyForm="ngForm"
-    (ngSubmit)="onModifySubmit(modifyForm)"
-    *ngIf="modify"
-    fxLayout="column"
-    fxLayoutAlign="space-between start"
-    class="modify-form"
-    fxLayoutGap="10px"
-  >
-    <mat-form-field appearance="fill">
-      <mat-label>Nadležno odjeljenje</mat-label>
-      <mat-select ngModel name="department" required>
-        <mat-option
-          *ngFor="let department of departments"
-          [value]="department.name"
-        >
-          {{ department.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error>Morate odabrati nadležno odjeljenje!</mat-error>
-    </mat-form-field>
-    <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-      <button
-        type="button"
-        mat-stroked-button
-        color="warn"
-        (click)="unsetModify()"
+      <form
+        #modifyForm="ngForm"
+        (ngSubmit)="onModifySubmit(modifyForm)"
+        *ngIf="modify"
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        class="modify-form"
+        fxLayoutGap="10px"
       >
-        Odustani
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!modifyForm.valid"
-      >
-        Potvrdi
-      </button>
-    </div>
-  </form>
+        <mat-form-field appearance="fill">
+          <mat-label>Nadležno odjeljenje</mat-label>
+          <mat-select ngModel name="department" required>
+            <mat-option
+              *ngFor="let department of departments"
+              [value]="department.name"
+            >
+              {{ department.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Morate odabrati nadležno odjeljenje!</mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <button
+            type="button"
+            mat-stroked-button
+            color="warn"
+            (click)="unsetModify()"
+          >
+            Odustani
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!modifyForm.valid"
+          >
+            Potvrdi
+          </button>
+        </div>
+      </form>
 
-  <form
-    #setDepartmentServiceForm="ngForm"
-    (ngSubmit)="onSetDepartmentService(setDepartmentServiceForm)"
-    *ngIf="step2 && !report?.departmentService"
-    fxLayout="column"
-    fxLayoutAlign="space-between start"
-    class="modify-form"
-    fxLayoutGap="10px"
-  >
-    <mat-form-field appearance="fill">
-      <mat-label>Nadležna služba</mat-label>
-      <mat-select ngModel name="departmentService" required>
-        <mat-option
-          *ngFor="let departmentService of departmentServices"
-          [value]="departmentService.name"
+      <form
+        #setDepartmentServiceForm="ngForm"
+        (ngSubmit)="onSetDepartmentService(setDepartmentServiceForm)"
+        *ngIf="step2 && !report?.departmentService"
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        class="modify-form"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Nadležna služba</mat-label>
+          <mat-select ngModel name="departmentService" required>
+            <mat-option
+              *ngFor="let departmentService of departmentServices"
+              [value]="departmentService.name"
+            >
+              {{ departmentService.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>Morate odabrati nadležnu službu!</mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="!setDepartmentServiceForm.valid"
+          >
+            Potvrdi
+          </button>
+        </div>
+      </form>
+      <div
+        *ngIf="step2 && report?.departmentService"
+        fxLayout="column"
+        fxLayoutAlign="space-between start"
+        class="final-step"
+      >
+        <div fxLayout="row">
+          <mat-icon color="primary">engineering</mat-icon>
+          <span class="label">Obrađuje</span>
+          {{ report?.departmentService }}
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            (click)="approveReport()"
+          >
+            Završi
+          </button>
+          <button mat-raised-button color="warn" (click)="rejectReport()">
+            Odbij
+          </button>
+        </div>
+      </div>
+    </div>
+    <div fxLayut="column" fxFlex="30" class="report-img">
+      <div>
+        <img [src]="transform()" alt="Report image" />
+      </div>
+      <div class="map-container">
+        <agm-map
+          *ngIf="!!report"
+          [longitude]="report.longitude"
+          [latitude]="report.latitude"
+          [zoom]="16"
         >
-          {{ departmentService.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error>Morate odabrati nadležnu službu!</mat-error>
-    </mat-form-field>
-    <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!setDepartmentServiceForm.valid"
-      >
-        Potvrdi
-      </button>
-    </div>
-  </form>
-  <div
-    *ngIf="step2 && report?.departmentService"
-    fxLayout="column"
-    fxLayoutAlign="space-between start"
-    class="final-step"
-  >
-    <div fxLayout="row">
-      <mat-icon color="primary">engineering</mat-icon>
-      <span class="label">Obrađuje</span>
-      {{ report?.departmentService }}
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        (click)="approveReport()"
-      >
-        Završi
-      </button>
-      <button mat-raised-button color="warn" (click)="rejectReport()">
-        Odbij
-      </button>
+          <agm-marker
+            [latitude]="report?.latitude"
+            [longitude]="report?.longitude"
+          ></agm-marker>
+        </agm-map>
+      </div>
     </div>
   </div>
 </div>

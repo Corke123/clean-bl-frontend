@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { concatMap, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { DepartmentServiceModel } from 'src/app/shared/model/department-service.model';
 import { Department } from 'src/app/shared/model/department.model';
 import { Report } from 'src/app/shared/model/report.model';
@@ -43,7 +43,6 @@ export class ProcessReportComponent implements OnInit {
       .subscribe(
         (report) => {
           this.report = report;
-          console.log(report);
           this.step1 = this.isNew();
           this.step2 = this.isInProcess();
           this.step3 = this.isCompleted();

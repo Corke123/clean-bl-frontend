@@ -36,3 +36,22 @@ img {
 .completed-info {
   width: 59%;
 }
+
+.map-container {
+  height: 300px;
+  /* width: 400px; */
+}
+
+agm-map {
+  height: 100%;
+}
+
+.status-lbl {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #bdbdbd;
+}

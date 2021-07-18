@@ -27,7 +27,7 @@ export class StatusDirectiveDirective implements OnInit {
         );
         break;
       }
-      case 'zavrsen': {
+      case 'završen': {
         if (this.valid) {
           this.renderer.addClass(this.hostElement.nativeElement, 'completed');
           this.renderer.appendChild(

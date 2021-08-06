@@ -74,7 +74,7 @@ export class ProcessReportComponent implements OnInit {
   }
 
   isCompleted(): boolean {
-    return this.report?.status === 'zavrsen';
+    return this.report?.status === 'završen';
   }
 
   setModify(): void {

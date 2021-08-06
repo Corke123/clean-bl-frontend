@@ -42,7 +42,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   isCompleted(): boolean {
-    return this.report?.status === 'zavrsen';
+    return this.report?.status === 'završen';
   }
 
   isMobile(): boolean {

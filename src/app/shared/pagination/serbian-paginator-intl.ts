@@ -21,7 +21,7 @@ const serbianRangeLabel = (page: number, pageSize: number, length: number) => {
 export function getSerbianPaginatorIntl(): MatPaginatorIntl {
   const paginatorIntl = new MatPaginatorIntl();
 
-  paginatorIntl.itemsPerPageLabel = 'Elemenata na stranici:';
+  paginatorIntl.itemsPerPageLabel = 'Stavki:';
   paginatorIntl.nextPageLabel = 'Sledeća stranica';
   paginatorIntl.previousPageLabel = 'Prethodna stranica';
   paginatorIntl.firstPageLabel = 'Prva stranica';

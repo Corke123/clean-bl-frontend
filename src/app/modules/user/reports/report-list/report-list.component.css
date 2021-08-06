@@ -5,3 +5,25 @@
 .actions-container {
   width: 100%;
 }
+
+.mat-option {
+  text-transform: uppercase;
+}
+
+.mat-select {
+  text-transform: uppercase;
+}
+
+.mat-paginator {
+  background-color: transparent;
+}
+
+.paginator-container {
+  width: 100%;
+}
+
+@media only screen and (max-width: 700px) {
+  mat-form-field {
+    width: 90%;
+  }
+}

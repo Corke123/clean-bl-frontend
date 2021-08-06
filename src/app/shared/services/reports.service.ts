@@ -17,8 +17,8 @@ export class ReportService {
     return this.http.post<Report>(`${this.baseURL}`, report);
   }
 
-  public getReports(page: number, size: number): Observable<any> {
-    return this.http.get<Report[]>(`${this.baseURL}?page=${page}&size=${size}`);
+  public getReports(params): Observable<any> {
+    return this.http.get<Report[]>(`${this.baseURL}`, { params });
   }
 
   public getReportsForDepartmentOfficer(

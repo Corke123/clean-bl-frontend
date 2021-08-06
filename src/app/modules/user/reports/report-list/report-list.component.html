@@ -1,6 +1,50 @@
-<div class="actions-container">
-  <mat-paginator [length]="totalElements" [pageSizeOptions]="[12, 24, 48]">
-  </mat-paginator>
+<div
+  class="actions-container"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="10px"
+>
+  <div fxLayout="row wrap" fxLayoutGap="10px">
+    <mat-form-field>
+      <mat-label>Naslov</mat-label>
+      <input
+        matInput
+        #titleInput
+        placeholder="Pretrazi po naslovu"
+        (input)="onTitleChanged(titleInput.value)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Korisnik</mat-label>
+      <input
+        matInput
+        #userInput
+        placeholder="Pretrazi po korisniku"
+        (input)="onUserChanged(userInput.value)"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let status of statuses" [value]="status.name">
+          {{ status.name }}
+        </mat-option>
+        <mat-option value="">Sve prijave</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>sort</mat-icon>
+      {{ sortLabel }}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onSort(false)">Najnovije prvo</button>
+      <button mat-menu-item (click)="onSort(true)">Najstarije prvo</button>
+    </mat-menu>
+  </div>
 </div>
 <app-report-item
   *ngFor="let report of reports"
@@ -10,3 +54,7 @@
   fxFlex.lg="33.333%"
   fxFlex.xl="25%"
 ></app-report-item>
+<div class="paginator-container" fxLayoutAlign="center center">
+  <mat-paginator [length]="totalElements" [pageSizeOptions]="[12, 24, 48]">
+  </mat-paginator>
+</div>

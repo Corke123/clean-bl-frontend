@@ -1,0 +1,71 @@
+<div *ngIf="cameraNotAllowed">
+  <p>
+    Dozvolite pristup kameri kako bi ste mogli napraviti fotografiju direktno sa
+    uređaja!
+  </p>
+</div>
+<div class="video-container">
+  <video
+    [class.show]="!isCaptured"
+    [class.hide]="isCaptured"
+    #video
+    id="video"
+    [width]="WIDTH"
+    [height]="HEIGHT"
+    autoplay
+  ></video>
+  <canvas
+    [class.show]="isCaptured"
+    [class.hide]="!isCaptured"
+    #canvas
+    id="canvas"
+    [width]="WIDTH"
+    [height]="HEIGHT"
+  ></canvas>
+</div>
+
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  fxLayoutGap="10px"
+  class="snap-container"
+>
+  <div *ngIf="!cameraNotAllowed">
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!isCaptured"
+      (click)="capture()"
+    >
+      Slikaj
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="isCaptured"
+      (click)="removeCurrent()"
+    >
+      Slikaj ponovo
+    </button>
+  </div>
+
+  <input
+    hidden
+    (change)="onFileSelected(fileInput.files)"
+    #fileInput
+    type="file"
+    id="file"
+    data-max-size="2048"
+    accept="image/*"
+  />
+  <button
+    matSuffix
+    type="button"
+    mat-raised-button
+    (click)="fileInput.click()"
+    color="primary"
+    class="image-upload-btn"
+  >
+    Izaberi sliku
+  </button>
+</div>

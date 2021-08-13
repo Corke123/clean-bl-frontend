@@ -13,6 +13,7 @@ import { ReportListComponent } from './reports/report-list/report-list.component
 import { ReportsComponent } from './reports/reports.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
+import { CaptureImageComponent } from './reports/add-report/capture-image/capture-image.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AgmCoreModule } from '@agm/core';
     CommentItemComponent,
     AddCommentComponent,
     AddReportComponent,
+    CaptureImageComponent,
   ],
   imports: [CoreModule, FormsModule, RouterModule, SharedModule, AgmCoreModule],
 })

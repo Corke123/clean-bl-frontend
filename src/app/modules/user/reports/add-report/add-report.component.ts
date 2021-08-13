@@ -55,34 +55,6 @@ export class AddReportComponent implements OnInit {
     );
   }
 
-  onFileSelected(files) {
-    this.wrongFormat = null;
-
-    if (files.length === 0) {
-      this.wrongFormat = 'Samo slike su podržane!';
-      return;
-    }
-
-    var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.wrongFormat = 'Samo slike su podržane!';
-      this.imageUrl = '';
-      return;
-    }
-
-    if (typeof FileReader !== 'undefined') {
-      this.imagePath = files[0].name;
-      const reader = new FileReader();
-
-      reader.readAsDataURL(files[0]);
-
-      reader.onload = (e: any) => {
-        this.imageUrl = reader.result;
-        this.base64Image = this.imageUrl.substring(23);
-      };
-    }
-  }
-
   onChooseLocation(event): void {
     this.selectedLongitude = event.coords.lng;
     this.selectedLatitude = event.coords.lat;
@@ -95,6 +67,14 @@ export class AddReportComponent implements OnInit {
 
   isLocationSelected(): boolean {
     return !this.selectedLatitude || !this.selectedLongitude;
+  }
+
+  isImageCaptured(): boolean {
+    return !!this.base64Image;
+  }
+
+  addImage(base64Img: string) {
+    this.base64Image = base64Img.split(',')[1];
   }
 
   onSubmit(reportForm: NgForm) {

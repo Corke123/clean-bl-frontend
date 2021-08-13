@@ -51,57 +51,7 @@
           fxFlex.lt-md="100"
           fxLayoutGap="20px"
         >
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" class="image-input">
-              <mat-label>Dodaj sliku</mat-label>
-              <mat-icon color="primary" matPrefix>add_photo_alternate</mat-icon>
-              <input
-                matInput
-                name="imageValue"
-                [ngModel]="imagePath"
-                readonly
-                required
-              />
-
-              <mat-error>
-                {{ wrongFormat }}
-              </mat-error>
-              <input
-                hidden
-                (change)="onFileSelected(fileInput.files)"
-                #fileInput
-                type="file"
-                id="file"
-                data-max-size="2048"
-              />
-            </mat-form-field>
-            <button
-              matSuffix
-              type="button"
-              mat-raised-button
-              (click)="fileInput.click()"
-              color="primary"
-              class="image-upload-btn"
-            >
-              Izaberi sliku
-            </button>
-          </div>
-
-          <div fxFlex="0 100 100%">
-            <div
-              fxFlex
-              fxFlex.lg="0 100 75%"
-              fxFlex.gt-lg="0 100 50%"
-              *ngIf="imageUrl"
-            >
-              <img
-                mat-card-image
-                class="image"
-                [src]="imageUrl"
-                alt=" {{ imageUrl }}"
-              />
-            </div>
-          </div>
+          <app-capture-image (image)="addImage($event)"></app-capture-image>
         </div>
       </div>
       <div class="map-container">
@@ -124,7 +74,9 @@
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="!reportForm.valid || isLocationSelected()"
+          [disabled]="
+            !reportForm.valid || isLocationSelected() || !isImageCaptured()
+          "
         >
           Pošalji
         </button>

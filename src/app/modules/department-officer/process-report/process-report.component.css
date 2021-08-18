@@ -2,10 +2,6 @@
   height: 98%;
 }
 
-.report-header {
-  margin-bottom: 20px !important;
-}
-
 .id {
   font-size: 32px;
 }
@@ -29,7 +25,8 @@ img {
 
 .step-1,
 .modify-form,
-.final-step {
+.final-step,
+.completed-report {
   height: 100%;
 }
 
@@ -54,4 +51,21 @@ agm-map {
   line-height: 15px;
   text-transform: uppercase;
   color: #bdbdbd;
+}
+
+.breadcrumb-active,
+.breadcrumb-inactive,
+.breadcrumb-separator {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.breadcrumb-inactive {
+  color: #3f51b5;
+  cursor: pointer;
+}
+
+.breadcrumb-separator,
+.breadcrumb-active {
+  color: #4f4f4f;
 }

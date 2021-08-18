@@ -1,4 +1,12 @@
 <div fxLayout="column" fxLayoutGap="20px" class="container">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h1 class="header">{{ report?.title }}</h1>
+    <div fxLayout="row" fxLayoutGap="5px">
+      <span class="breadcrumb-inactive" routerLink="/reports">Prijave</span>
+      <span class="breadcrumb-separator">&gt;</span>
+      <span class="breadcrumb-active">{{ report?.id }}</span>
+    </div>
+  </div>
   <div fxLayout="row wrap">
     <div
       fxLayout="column"
@@ -8,32 +16,6 @@
       fxLayoutGap="20px"
       class="report-info"
     >
-      <div
-        fxLayout="row wrap"
-        fxLayoutAlign="space-between center"
-        class="report-header"
-      >
-        <div fxLayout="row" fxFlex="60" class="title">
-          <mat-icon color="primary">flag</mat-icon>
-          {{ report?.title }}
-        </div>
-        <div fxFlex="40" fxLayout="column" fxLayoutAlign="start center">
-          <div class="status-lbl">status</div>
-          <div
-            *ngIf="report?.status"
-            appStatusDirective
-            [status]="report.status"
-            [valid]="report.valid"
-            class="status status-container"
-            fxLayout="row"
-            fxLayoutAlign="center center"
-          >
-            <mat-icon></mat-icon>
-            <span class="status-label"></span>
-          </div>
-        </div>
-      </div>
-      <mat-divider></mat-divider>
       <div fxLayout="row wrap">
         <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
           <mat-icon color="primary">person</mat-icon>
@@ -53,6 +35,28 @@
           <mat-icon color="primary">calendar_today</mat-icon>
           <span class="label">Prijavljeno</span>
           {{ report?.createdAt | date: "short" }}
+        </div>
+        <mat-divider *ngIf="isMobile()"></mat-divider>
+        <div
+          fxLayout="row"
+          fxFlex="50"
+          fxFlex.lt-sm="100"
+          fxLayoutAlign="start center"
+        >
+          <mat-icon color="primary">info</mat-icon>
+          <span class="label">Status</span>
+          <div
+            *ngIf="report?.status"
+            appStatusDirective
+            [status]="report.status"
+            [valid]="report.valid"
+            class="status status-container"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-icon></mat-icon>
+            <span class="status-label"></span>
+          </div>
         </div>
       </div>
       <mat-divider></mat-divider>
@@ -123,5 +127,11 @@
       [reportId]="report.id"
       fxLayout="column"
     ></app-comment-list>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <a mat-button routerLink="/reports">
+      <mat-icon>arrow_back</mat-icon>
+      Izađi</a
+    >
   </div>
 </div>

@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -12,7 +13,7 @@ import {
   templateUrl: './capture-image.component.html',
   styleUrls: ['./capture-image.component.css'],
 })
-export class CaptureImageComponent implements AfterViewInit {
+export class CaptureImageComponent implements AfterViewInit, OnDestroy {
   @Output() image = new EventEmitter<string>();
   WIDTH = 640;
   HEIGHT = 480;
@@ -23,6 +24,7 @@ export class CaptureImageComponent implements AfterViewInit {
   @ViewChild('canvas')
   public canvas: ElementRef;
 
+  stream;
   error: any;
   cameraNotAllowed: boolean;
   isCaptured: boolean;
@@ -37,11 +39,11 @@ export class CaptureImageComponent implements AfterViewInit {
   async setupDevices() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        this.stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'environment' },
         });
-        if (stream) {
-          this.video.nativeElement.srcObject = stream;
+        if (this.stream) {
+          this.video.nativeElement.srcObject = this.stream;
           this.video.nativeElement.play();
           this.error = null;
         } else {
@@ -98,5 +100,9 @@ export class CaptureImageComponent implements AfterViewInit {
     this.canvas.nativeElement
       .getContext('2d')
       .drawImage(image, 0, 0, this.WIDTH, this.HEIGHT);
+  }
+
+  ngOnDestroy(): void {
+    this.stream.getVideoTracks()[0].stop();
   }
 }

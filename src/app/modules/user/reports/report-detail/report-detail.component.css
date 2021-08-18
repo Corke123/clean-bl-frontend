@@ -39,9 +39,14 @@ mat-icon {
   margin-right: 10px;
 }
 
+.report-img {
+  margin: 0 auto;
+}
+
 img {
   height: 300px;
   width: 400px;
+  padding: 20px;
 }
 
 .status-lbl {
@@ -81,4 +86,21 @@ img {
 
 agm-map {
   height: 100%;
+}
+
+.breadcrumb-active,
+.breadcrumb-inactive,
+.breadcrumb-separator {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.breadcrumb-inactive {
+  color: #3f51b5;
+  cursor: pointer;
+}
+
+.breadcrumb-separator,
+.breadcrumb-active {
+  color: #4f4f4f;
 }

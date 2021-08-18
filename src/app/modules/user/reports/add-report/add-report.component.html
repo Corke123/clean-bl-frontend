@@ -69,7 +69,10 @@
           ></agm-marker>
         </agm-map>
       </div>
-      <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px">
+        <a mat-stroked-button routerLink="/reports"
+          ><mat-icon>close</mat-icon>Odustani</a
+        >
         <button
           mat-raised-button
           color="primary"
@@ -78,6 +81,7 @@
             !reportForm.valid || isLocationSelected() || !isImageCaptured()
           "
         >
+          <mat-icon>check</mat-icon>
           Pošalji
         </button>
       </div>

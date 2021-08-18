@@ -1,18 +1,38 @@
 <div fxLayout="column" class="container" fxLayoutGap="40px">
-  <h1 class="header">Obrada prijave</h1>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h1 class="header">{{ report?.title }}</h1>
+    <div fxLayout="row" fxLayoutGap="5px">
+      <span class="breadcrumb-inactive" routerLink="/management/manage-reports"
+        >Prijave</span
+      >
+      <span class="breadcrumb-separator">&gt;</span>
+      <span class="breadcrumb-active">{{ report?.id }}</span>
+    </div>
+  </div>
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxLayout="column" fxFlex="70" fxLayoutGap="20px" class="report-info">
-      <div
-        fxLayout="row wrap"
-        fxLayoutAlign="space-between center"
-        class="report-header"
-      >
-        <div fxLayout="row" fxFlex="60" class="title">
-          <mat-icon color="primary">flag</mat-icon>
-          {{ report?.title }}
+      <div fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50">
+          <mat-icon color="primary">person</mat-icon>
+          <span class="label">Prijavio korisnik</span>
+          {{ report?.userReported }}
         </div>
-        <div fxFlex="40" fxLayout="column" fxLayoutAlign="start center">
-          <div class="status-lbl">status</div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50">
+          <mat-icon color="primary">reorder</mat-icon>
+          <span class="label">Nadležno odjeljenje</span>
+          {{ report?.department }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50">
+          <mat-icon color="primary">calendar_today</mat-icon>
+          <span class="label">Prijavljeno</span>
+          {{ report?.createdAt | date: "short" }}
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="50">
+          <mat-icon color="primary">info</mat-icon>
+          <span class="label">Status</span>
           <div
             *ngIf="report?.status"
             appStatusDirective
@@ -28,27 +48,6 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <div fxLayout="row">
-        <div fxLayout="row" fxFlex="50">
-          <mat-icon color="primary">person</mat-icon>
-          <span class="label">Prijavio korisnik</span>
-          {{ report?.userReported }}
-        </div>
-        <div fxLayout="row" fxFlex="50">
-          <mat-icon color="primary">reorder</mat-icon>
-          <span class="label">Nadležno odjeljenje</span>
-          {{ report?.department }}
-        </div>
-      </div>
-      <mat-divider></mat-divider>
-      <div fxLayout="row">
-        <div fxLayout="row" fxFlex="50">
-          <mat-icon color="primary">calendar_today</mat-icon>
-          <span class="label">Prijavljeno</span>
-          {{ report?.createdAt | date: "short" }}
-        </div>
-      </div>
-      <mat-divider></mat-divider>
       <div class="info">
         <div fxLayout="row">
           <mat-icon color="primary">description</mat-icon>
@@ -59,12 +58,22 @@
         </div>
       </div>
       <div fxLayout="row" class="completed-info">
-        <div fxLayout="row" fxFlex="50" *ngIf="isCompleted() && report.valid">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxFlex="50"
+          *ngIf="isCompleted() && report.valid"
+        >
           <mat-icon color="primary">engineering</mat-icon>
           <span class="label">Obradio</span>
           {{ report?.departmentService }}
         </div>
-        <div fxLayout="row" fxFlex="50" *ngIf="isCompleted()">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxFlex="50"
+          *ngIf="isCompleted()"
+        >
           <mat-icon color="primary">event_available</mat-icon>
           <span class="label">Obrađeno</span>
           {{ report?.processed | date: "short" }}
@@ -78,6 +87,9 @@
         fxLayoutGap="10px"
       >
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <a mat-stroked-button routerLink="/management/manage-reports"
+            >Izađi</a
+          >
           <button mat-stroked-button color="primary" (click)="setModify()">
             Modifikuj
           </button>
@@ -175,6 +187,9 @@
           {{ report?.departmentService }}
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <a mat-stroked-button routerLink="/management/manage-reports"
+            >Izađi</a
+          >
           <button
             mat-raised-button
             color="primary"
@@ -186,6 +201,18 @@
           <button mat-raised-button color="warn" (click)="rejectReport()">
             Odbij
           </button>
+        </div>
+      </div>
+      <div
+        *ngIf="isCompleted()"
+        fxLayout="column"
+        fxLayoutAlign="end start"
+        class="completed-report"
+      >
+        <div>
+          <a mat-stroked-button routerLink="/management/manage-reports"
+            >Izađi</a
+          >
         </div>
       </div>
     </div>

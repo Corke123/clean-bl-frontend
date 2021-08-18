@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { StatusDirectiveDirective } from './directives/status-directive.directive';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MaterialModule,
     RouterModule,
     HttpClientModule,
+    HighchartsChartModule,
   ],
   exports: [
     HeaderComponent,

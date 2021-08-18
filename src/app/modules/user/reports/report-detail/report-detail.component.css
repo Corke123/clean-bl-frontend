@@ -39,9 +39,14 @@ mat-icon {
   margin-right: 10px;
 }
 
+.report-img {
+  margin: 0 auto;
+}
+
 img {
   height: 300px;
   width: 400px;
+  padding: 20px;
 }
 
 .status-lbl {

@@ -103,6 +103,8 @@ export class CaptureImageComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.stream.getVideoTracks()[0].stop();
+    if (this.stream) {
+      this.stream.getVideoTracks()[0].stop();
+    }
   }
 }

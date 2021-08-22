@@ -51,9 +51,18 @@
     *ngIf="isAuthenticated && isDepartmentOfficer"
     mat-list-item
     routerLinkActive="list-item-active"
-    routerLink="/management/manage-reports"
+    routerLink="/management/active-reports"
   >
     <mat-icon color="primary">description</mat-icon>
-    Prijave</a
+    Aktivne prijave</a
+  >
+  <a
+    *ngIf="isAuthenticated && isDepartmentOfficer"
+    mat-list-item
+    routerLinkActive="list-item-active"
+    routerLink="/management/archieved-reports"
+  >
+    <mat-icon color="primary">inventory_2</mat-icon>
+    Završene prijave</a
   >
 </mat-nav-list>

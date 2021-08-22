@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge, Observable, of } from 'rxjs';
+import { ActivatedRoute, Data } from '@angular/router';
+import { BehaviorSubject, merge, Observable, of } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -36,6 +37,10 @@ export class ManageReportsComponent implements OnInit, AfterViewInit {
 
   pageSizeOptions: number[] = [5, 10, 15, 25];
   totalElements = 0;
+  status: string;
+
+  title = new BehaviorSubject<string>('');
+  user = new BehaviorSubject<string>('');
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -43,19 +48,40 @@ export class ManageReportsComponent implements OnInit, AfterViewInit {
   constructor(
     private reportService: ReportService,
     private commonService: CommonService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.data.subscribe((data: Data) => {
+      this.status = data.type;
+    });
+  }
 
   ngAfterViewInit(): void {
-    this.dataSource = merge(this.sort.sortChange, this.paginator.page).pipe(
+    this.dataSource = merge(
+      this.sort.sortChange,
+      this.paginator.page,
+      this.title,
+      this.user
+    ).pipe(
       startWith({}),
       debounceTime(300),
       switchMap(() => {
         return this.reportService.getReportsForDepartmentOfficer(
           this.paginator.pageIndex,
-          this.paginator.pageSize
+          this.paginator.pageSize,
+          this.sort.active,
+          this.sort.direction.toUpperCase(),
+          this.status,
+          this.title.getValue(),
+          this.user.getValue()
+          // pageNumber: this.paginator.pageIndex,
+          // pageSize: this.paginator.pageSize,
+          // sortBy: this.sort.active,
+          // sortDirection: this.sort.direction.toUpperCase(),
+          // title: this.title.getValue(),
+          // username: this.user.getValue(),
         );
       }),
       map((page) => {
@@ -74,6 +100,16 @@ export class ManageReportsComponent implements OnInit, AfterViewInit {
 
   resetPaging(): void {
     this.paginator.pageIndex = 0;
+  }
+
+  onTitleChanged(input: string) {
+    this.resetPaging();
+    this.title.next(input);
+  }
+
+  onUserChanged(input: string) {
+    this.resetPaging();
+    this.user.next(input);
   }
 
   handleError(): void {

@@ -5,12 +5,34 @@
   class="container"
 >
   <h1 class="header">Prijave</h1>
+  <div fxLayout="row" fxLayoutGap="15px">
+    <mat-form-field>
+      <mat-label>Naslov</mat-label>
+      <input
+        matInput
+        #titleInput
+        placeholder="Pretrazi po naslovu"
+        (input)="onTitleChanged(titleInput.value)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Korisnik</mat-label>
+      <input
+        matInput
+        #userInput
+        placeholder="Pretrazi po korisniku"
+        (input)="onUserChanged(userInput.value)"
+      />
+    </mat-form-field>
+  </div>
   <div class="table-container">
     <mat-table
       [dataSource]="dataSource"
       class="table"
       matSort
       matSortActive="createdAt"
+      matSortDirection="desc"
+      matSortDisableClear
       (matSortChange)="resetPaging()"
     >
       <!-- CreatedAt Column -->
@@ -25,15 +47,19 @@
 
       <!-- Description Column -->
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef>Kratak opis</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Naslov</mat-header-cell
+        >
         <mat-cell *matCellDef="let row"
-          ><span class="ellipsis">{{ row.description }}</span></mat-cell
+          ><span class="ellipsis">{{ row.title }}</span></mat-cell
         >
       </ng-container>
 
       <!-- User Column -->
       <ng-container matColumnDef="user">
-        <mat-header-cell *matHeaderCellDef>Korisnik</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header
+          >Korisnik</mat-header-cell
+        >
         <mat-cell *matCellDef="let row"
           ><span class="ellipsis">{{ row.userReported }}</span></mat-cell
         >

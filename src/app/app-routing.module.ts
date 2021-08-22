@@ -77,12 +77,28 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'manage-reports',
+            redirectTo: 'active-reports',
             pathMatch: 'full',
           },
           {
-            path: 'manage-reports',
+            path: 'active-reports',
             component: ManagementComponent,
+            data: { type: 'active' },
+            children: [
+              {
+                path: '',
+                component: ManageReportsComponent,
+              },
+              {
+                path: ':id',
+                component: ProcessReportComponent,
+              },
+            ],
+          },
+          {
+            path: 'archieved-reports',
+            component: ManagementComponent,
+            data: { type: 'inactive' },
             children: [
               {
                 path: '',

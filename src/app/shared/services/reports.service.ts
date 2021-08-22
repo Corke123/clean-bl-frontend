@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Report } from '../model/report.model';
 import { Comment } from '../model/comment.model';
@@ -22,12 +22,25 @@ export class ReportService {
   }
 
   public getReportsForDepartmentOfficer(
-    page: number,
-    size: number
+    pageIndex: number,
+    pageSize: number,
+    sortBy: string,
+    sortDirection: string,
+    status: string,
+    title: string,
+    username: string
   ): Observable<any> {
-    return this.http.get<Report[]>(
-      `${this.baseURL}/department-officer?page=${page}&size=${size}`
-    );
+    const params = new HttpParams()
+      .set('pageNumber', pageIndex.toString())
+      .set('pageSize', pageSize.toString())
+      .set('sortBy', sortBy)
+      .set('sortDirection', sortDirection)
+      .set('status', status)
+      .set('title', title)
+      .set('username', username);
+    return this.http.get<Report[]>(`${this.baseURL}/department-officer`, {
+      params: params,
+    });
   }
 
   public getReportById(id: number) {

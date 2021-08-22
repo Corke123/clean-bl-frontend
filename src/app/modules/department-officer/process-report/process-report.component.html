@@ -109,7 +109,7 @@
       >
         <mat-form-field appearance="fill">
           <mat-label>Nadležno odjeljenje</mat-label>
-          <mat-select ngModel name="department" required>
+          <mat-select ngModel name="name" required>
             <mat-option
               *ngFor="let department of departments"
               [value]="department.name"
@@ -150,7 +150,7 @@
       >
         <mat-form-field appearance="fill">
           <mat-label>Nadležna služba</mat-label>
-          <mat-select ngModel name="departmentService" required>
+          <mat-select ngModel name="name" required>
             <mat-option
               *ngFor="let departmentService of departmentServices"
               [value]="departmentService.name"
@@ -161,6 +161,15 @@
           <mat-error>Morate odabrati nadležnu službu!</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <a mat-stroked-button [routerLink]="['../']">Izađi</a>
+          <button
+            type="button"
+            mat-stroked-button
+            color="warn"
+            (click)="discardStep2()"
+          >
+            Odustani
+          </button>
           <button
             mat-raised-button
             color="primary"

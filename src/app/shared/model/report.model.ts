@@ -12,4 +12,6 @@ export interface Report {
   valid: boolean;
   processed?: Date;
   base64Image: string;
+  grade: number;
+  userRated: number;
 }

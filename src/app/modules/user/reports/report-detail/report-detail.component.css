@@ -1,6 +1,7 @@
-mat-divider {
-  margin: 10px 0;
+mat-divider,
+.divider {
   width: 100%;
+  margin: 20px 0;
 }
 
 .info {

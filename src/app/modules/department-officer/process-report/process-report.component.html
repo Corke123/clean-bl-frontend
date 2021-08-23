@@ -2,9 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <h1 class="header">{{ report?.title }}</h1>
     <div fxLayout="row" fxLayoutGap="5px">
-      <span class="breadcrumb-inactive" routerLink="/management/manage-reports"
-        >Prijave</span
-      >
+      <span class="breadcrumb-inactive" [routerLink]="['../']">Prijave</span>
       <span class="breadcrumb-separator">&gt;</span>
       <span class="breadcrumb-active">{{ report?.id }}</span>
     </div>
@@ -87,9 +85,7 @@
         fxLayoutGap="10px"
       >
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-          <a mat-stroked-button routerLink="/management/manage-reports"
-            >Izađi</a
-          >
+          <a mat-stroked-button [routerLink]="['../']">Izađi</a>
           <button mat-stroked-button color="primary" (click)="setModify()">
             Modifikuj
           </button>
@@ -113,7 +109,7 @@
       >
         <mat-form-field appearance="fill">
           <mat-label>Nadležno odjeljenje</mat-label>
-          <mat-select ngModel name="department" required>
+          <mat-select ngModel name="name" required>
             <mat-option
               *ngFor="let department of departments"
               [value]="department.name"
@@ -154,7 +150,7 @@
       >
         <mat-form-field appearance="fill">
           <mat-label>Nadležna služba</mat-label>
-          <mat-select ngModel name="departmentService" required>
+          <mat-select ngModel name="name" required>
             <mat-option
               *ngFor="let departmentService of departmentServices"
               [value]="departmentService.name"
@@ -165,6 +161,15 @@
           <mat-error>Morate odabrati nadležnu službu!</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
+          <a mat-stroked-button [routerLink]="['../']">Izađi</a>
+          <button
+            type="button"
+            mat-stroked-button
+            color="warn"
+            (click)="discardStep2()"
+          >
+            Odustani
+          </button>
           <button
             mat-raised-button
             color="primary"
@@ -187,9 +192,7 @@
           {{ report?.departmentService }}
         </div>
         <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="15px">
-          <a mat-stroked-button routerLink="/management/manage-reports"
-            >Izađi</a
-          >
+          <a mat-stroked-button [routerLink]="['../']">Izađi</a>
           <button
             mat-raised-button
             color="primary"
@@ -210,9 +213,7 @@
         class="completed-report"
       >
         <div>
-          <a mat-stroked-button routerLink="/management/manage-reports"
-            >Izađi</a
-          >
+          <a mat-stroked-button [routerLink]="['../']">Izađi</a>
         </div>
       </div>
     </div>

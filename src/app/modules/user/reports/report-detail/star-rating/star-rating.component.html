@@ -1,0 +1,22 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+  <div>
+    <button
+      mat-icon-button
+      color="primary"
+      *ngFor="let ratingId of ratingArr; index as i"
+      [id]="'star_' + i"
+      (click)="onClick(i + 1)"
+      [matTooltip]="ratingId + 1"
+      matTooltipPosition="above"
+      [disabled]="!canRate()"
+    >
+      <mat-icon>
+        {{ showIcon(i) }}
+      </mat-icon>
+    </button>
+  </div>
+  <div>
+    <span *ngIf="rating; else no_rating" class="grade">{{ rating }}</span>
+    <ng-template #no_rating class="grade">NA</ng-template>
+  </div>
+</div>

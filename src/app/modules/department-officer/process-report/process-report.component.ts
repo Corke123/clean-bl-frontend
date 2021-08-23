@@ -103,10 +103,12 @@ export class ProcessReportComponent implements OnInit {
       .modifyDepartmentForReport(this.report.id, form.value)
       .subscribe(
         (report) => {
-          this.router.navigate(['/management/manage-reports']);
+          this.router.navigate(['/management/active-reports']);
           this.commonService.showSnackBar(
             'Uspješno izmijenili nadležno odjeljenje!'
           );
+
+          form.reset();
         },
         (err) => {
           this.commonService.showSnackBar(
@@ -114,8 +116,6 @@ export class ProcessReportComponent implements OnInit {
           );
         }
       );
-
-    form.reset();
   }
 
   setStep2(): void {
@@ -129,21 +129,27 @@ export class ProcessReportComponent implements OnInit {
       );
   }
 
+  discardStep2(): void {
+    this.step1 = true;
+    this.step2 = false;
+  }
+
   onSetDepartmentService(form: NgForm): void {
     if (!form.valid) {
       return;
     }
 
+    let departmentService = form.value.name;
+
     this.reportService
       .addDepartmentServiceToReport(this.report.id, form.value)
       .subscribe(
         (report) => {
-          this.router.navigate(['/management/manage-reports']);
+          this.router.navigate(['/management/active-reports']);
           this.commonService.showSnackBar(
-            'Uspješno dodijelili prijavu službi ' +
-              form.value.departmentService +
-              '!'
+            'Uspješno dodijelili prijavu službi ' + departmentService + '!'
           );
+          form.reset();
         },
         (err) => {
           this.commonService.showSnackBar(
@@ -152,14 +158,12 @@ export class ProcessReportComponent implements OnInit {
           );
         }
       );
-
-    form.reset();
   }
 
   approveReport(): void {
     this.reportService.approveReport(this.report.id).subscribe(
       (report) => {
-        this.router.navigate(['/management/manage-reports']);
+        this.router.navigate(['/management/archieved-reports']);
         this.commonService.showSnackBar('Prijava je završena!');
       },
       (err) => {
@@ -173,7 +177,7 @@ export class ProcessReportComponent implements OnInit {
   rejectReport(): void {
     this.reportService.rejectReport(this.report.id).subscribe(
       (report) => {
-        this.router.navigate(['/management/manage-reports']);
+        this.router.navigate(['/management/archieved-reports']);
         this.commonService.showSnackBar('Prijava je odbijena!');
       },
       (err) => {

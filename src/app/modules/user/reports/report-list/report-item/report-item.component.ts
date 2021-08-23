@@ -19,4 +19,8 @@ export class ReportItemComponent implements OnInit {
       'data:image/png;base64, ' + this.report.base64Image
     );
   }
+
+  showRate(): boolean {
+    return this.report.status === 'završen' && this.report.valid;
+  }
 }

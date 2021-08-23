@@ -2,7 +2,7 @@
   <mat-card class="container">
     <img [src]="transform()" alt="Report image" />
     <mat-card-content fxLayout="row" fxLayoutGap="5px">
-      <div fxLayout="column">
+      <div fxLayout="column" fxLayoutGap="5px" class="content">
         <div class="department">
           <h2>{{ report.title }}</h2>
         </div>
@@ -10,16 +10,22 @@
           {{ report.department }}
         </div>
 
-        <div
-          appStatusDirective
-          [status]="report.status"
-          [valid]="report.valid"
-          class="status"
-          fxLayout="row"
-          fxLayoutAlign="center center"
-        >
-          <mat-icon></mat-icon>
-          <span class="status-label"></span>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div
+            appStatusDirective
+            [status]="report.status"
+            [valid]="report.valid"
+            class="status"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-icon></mat-icon>
+            <span class="status-label"></span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center" *ngIf="showRate()">
+            <mat-icon class="star-grade">star</mat-icon>
+            <span>{{ report.grade || "NA" }}</span>
+          </div>
         </div>
       </div>
     </mat-card-content>

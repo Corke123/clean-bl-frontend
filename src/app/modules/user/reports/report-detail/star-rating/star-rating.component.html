@@ -8,7 +8,7 @@
       (click)="onClick(i + 1)"
       [matTooltip]="ratingId + 1"
       matTooltipPosition="above"
-      [disabled]="userRated"
+      [disabled]="!canRate()"
     >
       <mat-icon>
         {{ showIcon(i) }}

@@ -45,6 +45,10 @@ export class ReportDetailComponent implements OnInit {
     return this.report?.status === 'završen';
   }
 
+  showRate(): boolean {
+    return this.isCompleted() && this?.report.valid;
+  }
+
   isMobile(): boolean {
     return this.media.isActive('xs');
   }

@@ -13,7 +13,6 @@
       fxFlex.lt-md="100"
       fxFlex.md="100"
       fxFlex.gt-md="60"
-      fxLayoutGap="20px"
       class="report-info"
     >
       <div fxLayout="row wrap">
@@ -22,7 +21,7 @@
           <span class="label">Prijavio korisnik</span>
           {{ report?.userReported }}
         </div>
-        <mat-divider *ngIf="isMobile()"></mat-divider>
+        <mat-divider *ngIf="isMobile()" ngClass.lt-md="divider"></mat-divider>
         <div fxLayout="row" fxFlex="50" fxFlex.lt-sm="100">
           <mat-icon color="primary">reorder</mat-icon>
           <span class="label">Nadležno odjeljenje</span>
@@ -92,6 +91,22 @@
           <span class="label">Obrađeno</span>
           {{ report?.processed | date: "short" }}
         </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div
+        fxLayout="row"
+        fxFlex.lt-sm="100"
+        fxLayoutAlign="start center"
+        *ngIf="showRate()"
+      >
+        <mat-icon color="primary">grading</mat-icon>
+        <span class="label">Ocjena</span>
+        <app-star-rating
+          [reportId]="report.id"
+          [rating]="report.grade"
+          [userRated]="report.userRated"
+          *ngIf="report"
+        ></app-star-rating>
       </div>
     </div>
     <div

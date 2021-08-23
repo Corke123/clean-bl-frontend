@@ -19,9 +19,12 @@ npm version is 6.14.11.
 
 ## Requirements
 
-You need node.js with npm on your machine.
+To use Google Maps it is necessary to input API KEY in environment.ts or environment.prod.ts if running in production mode. Example of environent file looks like below:
 
-## Development server
+`export const environment = {
+  production: false,
+  API_KEY: 'use_your_api_key_here',
+};`
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 

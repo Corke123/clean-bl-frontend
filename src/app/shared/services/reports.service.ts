@@ -81,4 +81,10 @@ export class ReportService {
   public rejectReport(reportId: number) {
     return this.http.patch<Report>(`${this.baseURL}/${reportId}/reject`, null);
   }
+
+  public rateReport(reportId: number, grade: number) {
+    return this.http.post<number>(`${this.baseURL}/${reportId}/rating`, {
+      grade: grade,
+    });
+  }
 }

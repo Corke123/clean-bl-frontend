@@ -1,26 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { StatisticsService } from 'src/app/shared/services/statistics.service';
+import HC_exporting from 'highcharts/modules/exporting';
+import HC_exportData from 'highcharts/modules/export-data';
+
+HC_exporting(Highcharts);
+HC_exportData(Highcharts);
 
 @Component({
   selector: 'app-monthly-review',
   templateUrl: './monthly-review.component.html',
   styleUrls: ['./monthly-review.component.css'],
 })
-export class MonthlyReviewComponent implements OnInit {
+export class MonthlyReviewComponent
+  implements OnInit, AfterViewInit, OnChanges
+{
   @Input() year: number;
 
-  Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options;
+  chart;
+  updateFlag = false;
+  Highcharts = Highcharts;
+  chartConstructor = 'chart';
+  chartCallback;
+  chartOptions;
 
-  constructor() {}
+  constructor(private statisticsService: StatisticsService) {
+    const self = this;
 
-  ngOnInit(): void {
+    this.chartCallback = (chart) => {
+      self.chart = chart;
+    };
+  }
+
+  ngOnInit() {
     this.chartOptions = {
       chart: {
         type: 'column',
       },
       title: {
         text: 'Broj prijava po mjesecima za ' + this.year + '. godinu',
+      },
+      exporting: {
+        enabled: true,
       },
       xAxis: {
         categories: [
@@ -60,31 +87,39 @@ export class MonthlyReviewComponent implements OnInit {
           borderWidth: 0,
         },
       },
-      series: [
-        {
-          name: 'Poslane',
-          type: 'column',
-          data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54],
-        },
-        {
-          name: 'U procesu',
-          type: 'column',
-          data: [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 106, 92],
-        },
-        {
-          name: 'Završene',
-          type: 'column',
-          data: [48, 38, 39, 41, 47, 48, 59, 59, 52, 65, 59, 10],
-        },
-        // {
-        //   name: 'Berlin',
-        //   type: 'column',
-        //   data: [
-        //     42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8,
-        //     51.1,
-        //   ],
-        // },
-      ],
+      series: [],
     };
+  }
+
+  ngAfterViewInit() {
+    this.updateChart();
+  }
+
+  updateChart() {
+    setTimeout(() => {
+      if (this.chart) {
+        this.chart.reflow();
+      }
+    }, 100);
+    const self = this;
+    const chart = this.chart;
+
+    chart.showLoading();
+
+    this.statisticsService.getMonthlyStatistics(this.year).subscribe((data) => {
+      chart.hideLoading();
+      self.chartOptions.series = data;
+      self.chartOptions.title = {
+        text: 'Broj prijava po mjesecima za ' + this.year + '. godinu',
+      };
+
+      self.updateFlag = true;
+    });
+  }
+
+  ngOnChanges() {
+    if (this.chart) {
+      this.updateChart();
+    }
   }
 }

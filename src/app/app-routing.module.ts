@@ -15,6 +15,7 @@ import { ReportDetailComponent } from './modules/user/reports/report-detail/repo
 import { ReportListComponent } from './modules/user/reports/report-list/report-list.component';
 import { ReportsComponent } from './modules/user/reports/reports.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { StatisticsComponent } from './shared/components/statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -135,6 +136,10 @@ const routes: Routes = [
             component: MessagesComponent,
           },
         ],
+      },
+      {
+        path: 'statistics',
+        component: StatisticsComponent,
       },
     ],
   },

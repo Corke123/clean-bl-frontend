@@ -10,6 +10,10 @@ import { MaterialModule } from './material/material.module';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { StatusDirectiveDirective } from './directives/status-directive.directive';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { MonthlyReviewComponent } from './components/statistics/monthly-review/monthly-review.component';
+import { DepartmentReviewComponent } from './components/statistics/department-review/department-review.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ConfirmationDialogComponent,
     StatusDirectiveDirective,
     PageNotFoundComponent,
+    StatisticsComponent,
+    MonthlyReviewComponent,
+    DepartmentReviewComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +33,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MaterialModule,
     RouterModule,
     HttpClientModule,
+    HighchartsChartModule,
   ],
   exports: [
     HeaderComponent,

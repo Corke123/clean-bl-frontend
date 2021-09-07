@@ -10,6 +10,7 @@ import { ManageReportsComponent } from './modules/department-officer/manage-repo
 import { ManagementComponent } from './modules/department-officer/management/management.component';
 import { ProcessReportComponent } from './modules/department-officer/process-report/process-report.component';
 import { ContactUsComponent } from './modules/user/contact-us/contact-us.component';
+import { ReportsMapComponent } from './modules/user/reports-map/reports-map.component';
 import { AddReportComponent } from './modules/user/reports/add-report/add-report.component';
 import { ReportDetailComponent } from './modules/user/reports/report-detail/report-detail.component';
 import { ReportListComponent } from './modules/user/reports/report-list/report-list.component';
@@ -53,6 +54,10 @@ const routes: Routes = [
         data: {
           expectedRole: 'ROLE_User',
         },
+      },
+      {
+        path: 'reports-map',
+        component: ReportsMapComponent,
       },
       {
         path: 'contact-us',

@@ -1,0 +1,18 @@
+<h1 class="header">Mapa prijava</h1>
+<div class="map-container">
+  <agm-map [longitude]="longitude" [latitude]="latitude" [zoom]="16">
+    <agm-marker
+      *ngFor="let location of locations"
+      [latitude]="location.latitude"
+      [longitude]="location.longitude"
+      [iconUrl]="
+        location.status === 'poslan'
+          ? blueMarker
+          : location.status === 'u procesu'
+          ? yellowMarker
+          : greenMarker
+      "
+      (markerClick)="onMarkerClick(location.id)"
+    ></agm-marker>
+  </agm-map>
+</div>

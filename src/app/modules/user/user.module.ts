@@ -15,6 +15,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AgmCoreModule } from '@agm/core';
 import { CaptureImageComponent } from './reports/add-report/capture-image/capture-image.component';
 import { StarRatingComponent } from './reports/report-detail/star-rating/star-rating.component';
+import { ReportsMapComponent } from './reports-map/reports-map.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { StarRatingComponent } from './reports/report-detail/star-rating/star-ra
     AddReportComponent,
     CaptureImageComponent,
     StarRatingComponent,
+    ReportsMapComponent,
   ],
   imports: [CoreModule, FormsModule, RouterModule, SharedModule, AgmCoreModule],
 })

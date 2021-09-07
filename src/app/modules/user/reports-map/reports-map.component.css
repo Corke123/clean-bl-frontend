@@ -1,0 +1,12 @@
+.map-container {
+  height: 50vw;
+}
+
+agm-map {
+  height: 100%;
+}
+
+agm-marker {
+  width: 15px;
+  height: 15px;
+}

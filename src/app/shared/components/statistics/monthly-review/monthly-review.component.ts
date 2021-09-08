@@ -41,7 +41,7 @@ export class MonthlyReviewComponent
   ngOnInit() {
     this.chartOptions = {
       chart: {
-        type: 'column',
+        type: 'line',
       },
       title: {
         text: 'Broj prijava po mjesecima za ' + this.year + '. godinu',

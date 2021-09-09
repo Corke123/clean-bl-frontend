@@ -1,10 +1,8 @@
-<mat-form-field appearance="fill">
-  <mat-label>Godina</mat-label>
-  <mat-select [(value)]="selectedYear">
-    <mat-option [value]="year" *ngFor="let year of years">{{
-      year
-    }}</mat-option>
-  </mat-select>
-</mat-form-field>
-<app-monthly-review [year]="selectedYear"></app-monthly-review>
-<app-department-review [year]="selectedYear"></app-department-review>
+<mat-tab-group>
+  <mat-tab label="Godisnji pregled prijava">
+    <app-monthly-review></app-monthly-review>
+  </mat-tab>
+  <mat-tab label="Ocjene nadležnih službi">
+    <app-department-review></app-department-review>
+  </mat-tab>
+</mat-tab-group>

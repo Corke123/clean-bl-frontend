@@ -1,3 +1,11 @@
+<mat-form-field appearance="fill">
+  <mat-label>Godina</mat-label>
+  <mat-select [(value)]="selectedYear" (selectionChange)="updateChart()">
+    <mat-option [value]="year" *ngFor="let year of years">{{
+      year
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
 <mat-card
   ><highcharts-chart
     id="container"

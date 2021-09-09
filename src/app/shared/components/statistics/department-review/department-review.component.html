@@ -1,0 +1,33 @@
+<div fxLayout="row" fxLayoutGap="15px" class="input-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Godina</mat-label>
+    <mat-select [(value)]="selectedYear" (selectionChange)="updateChart()">
+      <mat-option [value]="year" *ngFor="let year of years">{{
+        year
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Nadležna služba</mat-label>
+    <mat-select
+      [(value)]="selectedDepartment"
+      (selectionChange)="updateChart()"
+    >
+      <mat-option [value]="department" *ngFor="let department of departments">{{
+        department
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-card
+  ><highcharts-chart
+    id="container"
+    [Highcharts]="Highcharts"
+    [constructorType]="chartConstructor"
+    [options]="chartOptions"
+    [callbackFunction]="chartCallback"
+    [(update)]="updateFlag"
+    [oneToOne]="true"
+  >
+  </highcharts-chart
+></mat-card>

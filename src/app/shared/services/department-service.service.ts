@@ -13,4 +13,10 @@ export class DepartmentServiceService {
       'http://localhost:8080/api/v1/department-services'
     );
   }
+
+  getDepartmentServicesNames() {
+    return this.http.get<string[]>(
+      'http://localhost:8080/api/v1/department-services/names'
+    );
+  }
 }

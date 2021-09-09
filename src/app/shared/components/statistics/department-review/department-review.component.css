@@ -1,0 +1,13 @@
+.input-container {
+  margin-top: 20px;
+}
+
+.boxChart__container {
+  width: 100% !important;
+}
+
+highcharts-chart {
+  width: 100% !important;
+  height: 400px;
+  display: block;
+}

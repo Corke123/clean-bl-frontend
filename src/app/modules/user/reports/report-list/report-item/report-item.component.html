@@ -24,7 +24,7 @@
           </div>
           <div fxLayout="row" fxLayoutAlign="end center" *ngIf="showRate()">
             <mat-icon class="star-grade">star</mat-icon>
-            <span>{{ report.grade || "NA" }}</span>
+            <span>{{ (report.grade | number: "1.2-2") || "NA" }}</span>
           </div>
         </div>
       </div>

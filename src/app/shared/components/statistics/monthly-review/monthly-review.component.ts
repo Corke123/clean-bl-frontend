@@ -21,7 +21,8 @@ HC_exportData(Highcharts);
 export class MonthlyReviewComponent
   implements OnInit, AfterViewInit, OnChanges
 {
-  @Input() year: number;
+  selectedYear = new Date().getFullYear();
+  years: number[] = [];
 
   chart;
   updateFlag = false;
@@ -36,15 +37,19 @@ export class MonthlyReviewComponent
     this.chartCallback = (chart) => {
       self.chart = chart;
     };
+
+    for (let i = 0; i < 3; i++) {
+      this.years[i] = this.selectedYear - i;
+    }
   }
 
   ngOnInit() {
     this.chartOptions = {
       chart: {
-        type: 'column',
+        type: 'line',
       },
       title: {
-        text: 'Broj prijava po mjesecima za ' + this.year + '. godinu',
+        text: 'Broj prijava po mjesecima za ' + this.selectedYear + '. godinu',
       },
       exporting: {
         enabled: true,
@@ -106,15 +111,18 @@ export class MonthlyReviewComponent
 
     chart.showLoading();
 
-    this.statisticsService.getMonthlyStatistics(this.year).subscribe((data) => {
-      chart.hideLoading();
-      self.chartOptions.series = data;
-      self.chartOptions.title = {
-        text: 'Broj prijava po mjesecima za ' + this.year + '. godinu',
-      };
+    this.statisticsService
+      .getMonthlyStatistics(this.selectedYear)
+      .subscribe((data) => {
+        chart.hideLoading();
+        self.chartOptions.series = data;
+        self.chartOptions.title = {
+          text:
+            'Broj prijava po mjesecima za ' + this.selectedYear + '. godinu',
+        };
 
-      self.updateFlag = true;
-    });
+        self.updateFlag = true;
+      });
   }
 
   ngOnChanges() {

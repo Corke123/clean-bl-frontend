@@ -40,7 +40,6 @@ export class ReportsMapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('On init');
     this.reportLocation.getReportsByLocation().subscribe((data) => {
       this.locations = data;
     });

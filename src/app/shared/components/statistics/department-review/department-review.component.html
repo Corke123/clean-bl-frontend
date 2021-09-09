@@ -19,7 +19,7 @@
     </mat-select>
   </mat-form-field>
 </div>
-<mat-card
+<mat-card *ngIf="selectedDepartment"
   ><highcharts-chart
     id="container"
     [Highcharts]="Highcharts"

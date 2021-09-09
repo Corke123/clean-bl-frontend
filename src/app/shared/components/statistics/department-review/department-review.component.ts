@@ -15,7 +15,7 @@ HC_exportData(Highcharts);
 })
 export class DepartmentReviewComponent implements OnInit {
   selectedYear = new Date().getFullYear();
-  selectedDepartment = '';
+  selectedDepartment: string;
   years: number[] = [];
   departments: string[] = [];
 
@@ -39,16 +39,15 @@ export class DepartmentReviewComponent implements OnInit {
     for (let i = 0; i < 3; i++) {
       this.years[i] = this.selectedYear - i;
     }
-  }
 
-  ngOnInit() {
     this.departmentServiceService
       .getDepartmentServicesNames()
       .subscribe((data) => {
-        this.selectedDepartment = data[0];
         this.departments = data;
       });
+  }
 
+  ngOnInit() {
     this.chartOptions = {
       chart: {
         type: 'line',
@@ -106,37 +105,35 @@ export class DepartmentReviewComponent implements OnInit {
     };
   }
 
-  ngAfterViewInit() {
-    this.updateChart();
-  }
-
   updateChart() {
-    setTimeout(() => {
-      if (this.chart) {
-        this.chart.reflow();
-      }
-    }, 100);
-    const self = this;
-    const chart = this.chart;
+    if (this.chart) {
+      setTimeout(() => {
+        if (this.chart) {
+          this.chart.reflow();
+        }
+      }, 100);
+      const self = this;
+      const chart = this.chart;
 
-    chart.showLoading();
+      chart.showLoading();
 
-    this.statisticsService
-      .getAverageGrade(this.selectedYear, this.selectedDepartment)
-      .subscribe((data) => {
-        chart.hideLoading();
-        self.chartOptions.series = data;
-        self.chartOptions.title = {
-          text:
-            'Prosječna ocjena ' +
-            this.selectedDepartment +
-            '-a po mjesecima za ' +
-            this.selectedYear +
-            '. godinu',
-        };
+      this.statisticsService
+        .getAverageGrade(this.selectedYear, this.selectedDepartment)
+        .subscribe((data) => {
+          chart.hideLoading();
+          self.chartOptions.series = data;
+          self.chartOptions.title = {
+            text:
+              'Prosječna ocjena ' +
+              this.selectedDepartment +
+              '-a po mjesecima za ' +
+              this.selectedYear +
+              '. godinu',
+          };
 
-        self.updateFlag = true;
-      });
+          self.updateFlag = true;
+        });
+    }
   }
 
   ngOnChanges() {

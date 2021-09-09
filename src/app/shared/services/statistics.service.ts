@@ -16,4 +16,15 @@ export class StatisticsService {
       params: new HttpParams().set('year', year.toString()),
     });
   }
+
+  getAverageGrade(year: number, departmentService: string): Observable<any> {
+    return this.http.get<StatisticsData[]>(
+      `${this.baseURL}/by-department-service`,
+      {
+        params: new HttpParams()
+          .set('year', year.toString())
+          .set('departmentServiceName', departmentService),
+      }
+    );
+  }
 }

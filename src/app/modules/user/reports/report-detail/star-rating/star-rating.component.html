@@ -16,7 +16,9 @@
     </button>
   </div>
   <div>
-    <span *ngIf="rating; else no_rating" class="grade">{{ rating }}</span>
+    <span *ngIf="rating; else no_rating" class="grade">{{
+      rating | number: "1.2-2"
+    }}</span>
     <ng-template #no_rating class="grade">NA</ng-template>
   </div>
 </div>
